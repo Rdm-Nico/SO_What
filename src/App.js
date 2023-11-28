@@ -1,11 +1,17 @@
 
 import './App.css';
+import Sidebar from './compontents/Sidebar';
+import {BrowserRouter, Routes, Route} from 'react-router-dom';
+import Reparti from './pages/Reparti';
 
 function App() {
   return (
-    <div className="App">
-     <h1>Yooo</h1>
-    </div>
+    <BrowserRouter>
+      <Sidebar />
+      <Routes>
+        <Route path='/reparti' exact Component={Reparti} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 
