@@ -20,6 +20,11 @@ function App() {
         <Route path="/reparti/tornitura" exact Component={Tornitura} />
         <Route path="/reparti/qualità" exact Component={Qualità} />
         <Route path="/reparti/rettifica" exact Component={Rettifica} />
+        <Route path="*" element={
+          <div className='home'>
+            <h2> 404 Page not found</h2>
+          </div>
+        }/>
       </Routes>
     </BrowserRouter>
     </div>
