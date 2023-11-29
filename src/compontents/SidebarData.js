@@ -29,8 +29,8 @@ export const SidebarData = [
             icon: <IoIcons.IoIosPaper />,
             },
             {
-            title:'Retifica',
-            path:'/reparti/retifica',
+            title:'Rettifica',
+            path:'/reparti/rettifica',
             icon: <IoIcons.IoIosPaper />,
             },
         ]
