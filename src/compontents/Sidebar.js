@@ -50,7 +50,7 @@ const Sidebar = () => {
 
   return (
     <>
-    <IconContext.Provider value={{ color: '#fff'}}>
+    <IconContext.Provider value={{ color: '#fff'}}> {/* permette di colorare tutte le icone con un unico colore */}
     <Nav>
       <NavIcon to="#">
         <FaIcons.FaBars onClick={showSidebar} />

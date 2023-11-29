@@ -14,18 +14,13 @@ export const SidebarData = [
         iconOpened: <RiIcons.RiArrowUpSFill />,
         subNav: [
             {
-            title:'Dentatura',
-            path:'/reparti/dentatura',
-            icon: <IoIcons.IoIosPaper />,
-            },
-            {
             title:'Tornitura',
             path:'/reparti/tornitura',
             icon: <IoIcons.IoIosPaper />,
             },
             {
-            title:'Qualità',
-            path:'/reparti/qualità',
+            title:'Dentatura',
+            path:'/reparti/dentatura',
             icon: <IoIcons.IoIosPaper />,
             },
             {
@@ -33,6 +28,11 @@ export const SidebarData = [
             path:'/reparti/rettifica',
             icon: <IoIcons.IoIosPaper />,
             },
+            {
+            title:'Qualità',
+            path:'/reparti/qualità',
+            icon: <IoIcons.IoIosPaper />,
+            }
         ]
     }
 ]
