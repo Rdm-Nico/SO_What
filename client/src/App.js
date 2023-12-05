@@ -4,10 +4,19 @@ import Sidebar from './compontents/Sidebar';
 import {BrowserRouter, Routes, Route} from 'react-router-dom';
 import {Reparti, Dentatura, Tornitura, Rettifica, Qualità } from './pages/Reparti';
 import Home from './pages/Home';
+import React, {Component} from "react";
 
 
-function App() {
-  
+class App extends Component{
+
+  constructor(props) {
+    super(props);
+    this.state = {apiResponse: "" };
+  }
+
+
+
+  render(){
   return (
     <div>
       
@@ -26,9 +35,11 @@ function App() {
           </div>
         }/>
       </Routes>
+
     </BrowserRouter>
     </div>
   );
+  }
 }
 
 export default App;
