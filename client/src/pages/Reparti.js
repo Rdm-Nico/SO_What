@@ -1,5 +1,6 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom';
+import {DentaturaApi} from "../api/dentaturaAPI";
 
 
 
@@ -28,6 +29,7 @@ export const Dentatura = () => {
   return (
     <div className='reparti'>
       <h1>Reparto di Dentatura</h1>
+        <DentaturaApi />
     </div>
   )
 }

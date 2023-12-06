@@ -1,5 +1,5 @@
 import React from 'react'
-import TestAPI from "../TestAPI";
+import TestAPI from "../api/TestAPI";
 
 
 const Home = () => {

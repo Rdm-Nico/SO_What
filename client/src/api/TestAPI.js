@@ -8,9 +8,11 @@ class TestApi extends Component {
 
     callAPI(){
         fetch("http://localhost:9000/testAPI")
-            .then(res => res.next())
+            .then(res => res.text())
             .then(res => this.setState({apiResponse: res}))
             .catch(err => err);
+
+        console.log(this.state.apiResponse);
     }
 
     componentDidMount() {
@@ -19,7 +21,7 @@ class TestApi extends Component {
     render() {
         return (
             <div className='home'>
-                <p className='home'>ciaooo</p>
+                <p className='home'>{this.state.apiResponse}</p>
             </div>
         );
     }
