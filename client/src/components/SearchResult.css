@@ -1,0 +1,31 @@
+.search-result{
+    padding: 10px 20px;
+}
+
+.search-result:hover{
+    background-color: #dddddd;
+}
+.Tornitura{
+    padding-right: 10px;
+    background-color: #405d27;
+    font-size: 11px;
+    font-family: 'Merriweather', serif;
+    margin-left: auto;
+    border-radius: 10px;
+    font-weight: bold;
+    border-style: groove;
+    border-width: 3px;
+    border-color: #405d27;
+
+}
+.Rettifica{
+    padding-right: 10px;
+    font-size: 11px;
+    background-color: goldenrod;
+    font-family: 'Merriweather', serif;
+    border-radius: 10px;
+    font-weight: bold;
+    border-style: groove;
+    border-width: 3px;
+    border-color: goldenrod;
+}

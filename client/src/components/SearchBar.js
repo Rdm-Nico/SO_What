@@ -3,7 +3,7 @@ import {FaSearch} from "react-icons/fa";
 import "./SearchBar.css"
 import istruzioneService from "../services/istruzione.service";
 
-export const SearchBar = () => {
+export const SearchBar = ({setResults}) => {
     const [input, setInput] = useState("");
 
     const fetchData = (value) => {
@@ -16,23 +16,10 @@ export const SearchBar = () => {
                         istruzione.title
                     );
                 });
-                console.log(results);
+                // save the results
+                setResults(results);
             })
-        /*
-        istruzioneService.getAll()
-            .then((response) => {
-            // filter the data
-            const results = response.data.filter((istruzione) =>{
-                // if the value is empty we don't want to display it
-                return  value
-                    && istruzione
-                    && istruzione.title
-                    && istruzione.title.toLowerCase().includes(value)
-            });
-            console.log(results);
-            });
 
-         */
     };
 
     const handleChange = (value) => {
