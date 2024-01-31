@@ -1,6 +1,6 @@
 
 import './App.css';
-import Sidebar from './compontents/Sidebar';
+import Sidebar from './components/Sidebar';
 import {BrowserRouter, Routes, Route} from 'react-router-dom';
 import {Reparti, Dentatura, Tornitura, Rettifica, Qualità } from './pages/Reparti';
 import Home from './pages/Home';

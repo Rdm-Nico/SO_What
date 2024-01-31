@@ -14,16 +14,41 @@ var app = express();
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
 
+// create connection with the db -> in develop we can use force for drop existing table and re-sync db
+const db = require("./models");
+
+// code for develop time
+/*
+db.sequelize.sync({force: true})
+    .then(() =>{
+      console.log("Drop and re-sync  db.");
+    })
+    .catch((err) =>{
+      console.log("Failed to sync db: " + err.message);
+    });
+*/
+// code for production time
+db.sequelize.sync()
+    .then(() =>{
+      console.log("Synced db.");
+    })
+    .catch((err) =>{
+      console.log("Failed to sync db: " + err.message);
+    });
+
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(cors());
-app.use('/', indexRouter);
-app.use('/users', usersRouter);
-app.use("/testAPI", testAPIRouter);
-app.use("/dentaturaAPI", dentaturaAPI);
+
+require("./routes/istruzione.routers")(app)
+
+//app.use('/', indexRouter);
+//app.use('/users', usersRouter);
+//app.use("/testAPI", testAPIRouter);
+//app.use("/dentaturaAPI", dentaturaAPI);
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));

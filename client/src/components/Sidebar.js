@@ -64,7 +64,7 @@ const Sidebar = () => {
         />
       </NavIcon>
       {SidebarData.map((item, index) =>{
-          return <SubMenu item={item} key={index} />;
+          return <SubMenu item={item} key={index}  />;
       })}
       </SidebarWrap>
     </SidebarNav>
