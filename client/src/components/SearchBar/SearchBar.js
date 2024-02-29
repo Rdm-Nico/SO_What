@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {FaSearch} from "react-icons/fa";
 import "./SearchBar.css"
-import istruzioneService from "../services/istruzione.service";
+import istruzioneService from "../../services/istruzione.service";
 
 export const SearchBar = ({setResults}) => {
     const [input, setInput] = useState("");

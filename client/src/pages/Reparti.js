@@ -1,6 +1,5 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom';
-import {DentaturaApi} from "../api/dentaturaAPI";
 import IstruzioniListsReparto from "../api/istruzioni-list-reparto.api";
 
 

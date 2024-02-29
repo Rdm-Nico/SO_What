@@ -1,6 +1,6 @@
 import React, {useState} from 'react'
-import {SearchBar} from "../components/SearchBar";
-import {SearchResultsList} from "../components/SearchResultsList";
+import {SearchBar} from "../components/SearchBar/SearchBar";
+import {SearchResultsList} from "../components/SearchBar/SearchResultsList";
 
 
 
