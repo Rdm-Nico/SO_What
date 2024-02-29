@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import IstruzioneDataService from "../services/istruzione.service";
 import { withRouter } from "../common/with-router";
-import DocViewer, { DocViewerRenderers } from "@cyntler/react-doc-viewer";
+import DocViewer, {DocViewerRenderers} from "@cyntler/react-doc-viewer";
 
 class Istruzione extends Component {
     constructor(props){
@@ -74,6 +74,9 @@ class Istruzione extends Component {
                                     id="path"
                                     value={currentIstruzione.path}
                                 />
+                            </div>
+                            <div className="form-group">
+                                <DocViewer documents={[{uri: require("W:\\CIDI.pdf"), fileType: "pdf", fileName: "prova.pdf"}]} style={{height:500}} pluginRenderers={DocViewerRenderers} />
                             </div>
                         </form>
                     </div>
