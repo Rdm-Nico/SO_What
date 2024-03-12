@@ -37,6 +37,8 @@ exports.findOne = (req, res) =>{
     Istruzione.findByPk(id)
         .then(data => {
             if(data) {
+                console.log(data.getDataValue("path"))
+                //data.set("path","www.ciao.com")
                 res.send(data);
             } else {
                 res.status(404).send({
