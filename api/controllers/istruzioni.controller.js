@@ -1,9 +1,23 @@
 const db = require("../models");
 const Istruzione = db.istruzioni;
 const Op = db.Sequelize.Op;
+const multer = require('multer')
 
+
+const storage = multer.diskStorage({
+    destination: function(req, file, cb){
+        return cb(null, "../public/docs")
+    },
+    filename: function(req, file, cb){
+        return cb(null, `${Date.now()}_${file.originalname}`)
+    }
+})
+
+const upload = multer({storage})
 // Create and Save a new instruction
-exports.create = (req, res) => {
+exports.create = upload.single('file'), (req, res) => {
+    console.log(req.body)
+    console.log(req.file)
     // validate req
     if(!req.body.path) {
         res.status(400).send({

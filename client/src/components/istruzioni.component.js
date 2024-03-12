@@ -16,6 +16,7 @@ class Istruzione extends Component {
                 path: "",
                 reparto: ""
             },
+            file: null,
             message: ""
         };
     }
@@ -40,6 +41,15 @@ class Istruzione extends Component {
     render() {
         const {currentIstruzione} = this.state;
 
+
+        const upload = () => {
+            const formData = new FormData()
+            formData.append('')
+            formData.append('prova',this.state.file)
+            IstruzioneDataService.create(FormData)
+                .then(res => {})
+                .catch(er => console.log(er))
+        }
         const backToPrevPage = () => {
             window.history.back();
         }
@@ -77,6 +87,10 @@ class Istruzione extends Component {
                             </div>
                             <div className="form-group">
                                 <DocViewer documents={[{uri: require("W:\\CIDI.pdf"), fileType: "pdf", fileName: "prova.pdf"}]} style={{height:500}} pluginRenderers={DocViewerRenderers} />
+                            </div>
+                            <div className="form-group">
+                                <input type="file" onChange={(e) => this.setState({file: e.target.files[0]})}/>
+                                <button type="button" onClick={upload}>Upload</button>
                             </div>
                         </form>
                     </div>
