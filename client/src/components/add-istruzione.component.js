@@ -29,28 +29,28 @@ class AddIstruzione extends Component {
     }
 
     onChangeFile(e) {
-        const new_title = () => {
+        const new_title = (name) => {
             // facciamo il parsing per tirare via il .doc .pdf ecc...
-            const original_name = e.target.files[0].name
+            const original_name = name
             const startIndex = original_name.indexOf('.')
-            const endIndex = original_name.length - startIndex
+            const new_name = original_name.slice(0,startIndex);
 
-            const new_name = original_name.slice(0,startIndex) + original_name.slice(endIndex);
             return new_name
         }
 
         this.setState({file: e.target.files[0],
-                            title: new_title});
+                            title: new_title(e.target.files[0].name)});
     }
 
     saveIstruzione(){
-        var data = {
-            title: this.state.title,
-            reparto: this.state.reparto,
-            file: this.state.file
-        }
+        const form = new FormData()
 
-        IstruzioneDataService.create(data)
+        form.append('title', this.state.title)
+        form.append('reparto', this.state.reparto)
+        form.append('file', this.state.file)
+
+
+        IstruzioneDataService.create(form)
             .then(response => {
                 this.setState({
                     id: response.data.id,
@@ -65,6 +65,8 @@ class AddIstruzione extends Component {
             .catch(e => {
                 console.log(e)
             })
+
+
     }
 
     newIstruzione(){

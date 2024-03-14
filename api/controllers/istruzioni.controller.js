@@ -1,23 +1,34 @@
 const db = require("../models");
+const {handleSingleUploadFile} = require("../utils/uploadSingleFile");
 const Istruzione = db.istruzioni;
 const Op = db.Sequelize.Op;
-const multer = require('multer')
 
 
-const storage = multer.diskStorage({
-    destination: function(req, file, cb){
-        return cb(null, "../public/docs")
-    },
-    filename: function(req, file, cb){
-        return cb(null, `${Date.now()}_${file.originalname}`)
-    }
-})
 
-const upload = multer({storage})
 // Create and Save a new instruction
-exports.create = upload.single('file'), (req, res) => {
+exports.create =  (req, res) => {
+
     console.log(req.body)
     console.log(req.file)
+    /*
+    let uploadResult;
+
+
+    try {
+        uploadResult = await handleSingleUploadFile(req,res);
+    } catch (e) {
+        return res.status(422).send({
+           message: [e.message]
+        });
+    }
+
+
+    const { body } = uploadResult;
+    const { file } = uploadResult;
+    console.log("questo è il body: ",body)
+    console.log("questo è il file: ",file)
+    */
+
     // validate req
     if(!req.body.path) {
         res.status(400).send({

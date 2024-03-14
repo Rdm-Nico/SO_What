@@ -1,10 +1,18 @@
+const multer = require("multer")
 module.exports = app => {
     const istruzioni = require("../controllers/istruzioni.controller")
 
     var router = require("express").Router();
 
+    const upload = multer({dest: "../public/uploads"}).single('file')
+
     // Create a new Instruction
-    router.post("/", istruzioni.create);
+    router.post("/", upload, uploadFile);
+
+    function uploadFile(req, res){
+        console.log(req.file);
+        res.json({message: "upload the file"});
+    }
 
     // Retrieve all Instructions or by name
     router.get("/", istruzioni.findAll);
