@@ -1,34 +1,19 @@
 const multer = require("multer");
 
-/*
-import * as path from "path";
-import {Request, Response} from 'express'
 
-const uploadFilePath = path.resolve(__dirname, '../..','public/uploads');
-*/
 const storage = multer.diskStorage({
-    destination: function(req, file, cb){
-        return cb(null, "../public/uploads")
+    destination: (req, file, cb) => {
+        cb(null, `${__dirname}/../public/uploads/`);
     },
-    filename: function(req, file, cb){
-        return cb(null, `${Date.now()}_${file.originalname}`)
-    }
-})
+    filename: (req, file, cb) => {
+        cb(null, file.originalname);
+    },
+});
 
-const uploadFile = multer({
-    storage: storage
-}).single('file');
+const upload = multer({ storage: storage }).single("file",{name: "file"});
+
+exports.upload = upload
 
 
-exports.handleSingleUploadFile = async (req, res) => {
-    return new Promise((resolve, reject) => {
-        uploadFile(req, res, (error) => {
-            if (error){
-                reject(error);
-            }
 
-            resolve({file: req.file, body: req.body});
-        })
-    })
-}
 

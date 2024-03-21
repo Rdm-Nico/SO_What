@@ -43,14 +43,14 @@ class AddIstruzione extends Component {
     }
 
     saveIstruzione(){
-        const form = new FormData()
+        const data = new FormData()
 
-        form.append('title', this.state.title)
-        form.append('reparto', this.state.reparto)
-        form.append('file', this.state.file)
+        data.append('title', this.state.title)
+        data.append('reparto', this.state.reparto)
+        data.append('file', this.state.file)
 
 
-        IstruzioneDataService.create(form)
+        IstruzioneDataService.create(data)
             .then(response => {
                 this.setState({
                     id: response.data.id,
@@ -124,7 +124,6 @@ class AddIstruzione extends Component {
                                 id="file"
                                 required
                                 onChange={this.onChangeFile}
-                                name="file"
                             />
                         </div>
 

@@ -86,9 +86,6 @@ class Istruzione extends Component {
                                 />
                             </div>
                             <div className="form-group">
-                                <DocViewer documents={[{uri: require("W:\\CIDI.pdf"), fileType: "pdf", fileName: "prova.pdf"}]} style={{height:500}} pluginRenderers={DocViewerRenderers} />
-                            </div>
-                            <div className="form-group">
                                 <input type="file" onChange={(e) => this.setState({file: e.target.files[0]})}/>
                                 <button type="button" onClick={upload}>Upload</button>
                             </div>

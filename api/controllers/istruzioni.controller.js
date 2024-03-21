@@ -8,8 +8,8 @@ const Op = db.Sequelize.Op;
 // Create and Save a new instruction
 exports.create =  (req, res) => {
 
-    console.log(req.body)
-    console.log(req.file)
+    console.log(req.headers)
+
     /*
     let uploadResult;
 
