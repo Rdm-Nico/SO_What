@@ -16,6 +16,7 @@ class AddIstruzione extends Component {
             reparto: "",
             file: null,
 
+            url: "",
             submitted: false
         };
     }
@@ -50,17 +51,18 @@ class AddIstruzione extends Component {
         data.append('file', this.state.file)
 
 
+
         IstruzioneDataService.create(data)
             .then(response => {
+                console.log(response.data.path)
                 this.setState({
                     id: response.data.id,
                     title: response.data.title,
                     reparto: response.data.reparto,
-                    // in teoria qua si deve aggiungere anche il file
 
+                    url: response.data.path,
                     submitted: true
                 });
-                console.log(response.data)
             })
             .catch(e => {
                 console.log(e)
@@ -76,6 +78,7 @@ class AddIstruzione extends Component {
             reparto: "",
             file: null,
 
+            url: "",
             submitted: false
         });
     }
@@ -86,6 +89,7 @@ class AddIstruzione extends Component {
                 {this.state.submitted ? (
                     <div>
                         <h4>File inviati correttamente !</h4>
+                        <div>{this.state.url && <img  src={this.state.url} alt="Image from API" />}</div>
                         <button className="btn btn-success" onClick={this.newIstruzione}>
                             Add
                         </button>

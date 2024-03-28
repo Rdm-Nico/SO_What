@@ -1,15 +1,13 @@
-
-// here we rapresents the  schede table in Mysql database.
-// The columns will be generated auto: id, path,name,reparto,CreateAt, updatedAt
+/* Here we rappresent the table fo the users*/
 module.exports = (sequelize, Sequelize) => {
-    return sequelize.define("schede", {
-        path: {
+    return sequelize.define("utenti", {
+        username: {
             type: Sequelize.STRING
         },
-        title: {
+        password: {
             type: Sequelize.STRING
         },
-        reparto: {
+        rule: {
             type: Sequelize.STRING
         },
         updatedAt: {
@@ -23,4 +21,3 @@ module.exports = (sequelize, Sequelize) => {
         timestamps: false,
     });
 }
-

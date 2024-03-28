@@ -1,5 +1,4 @@
 const db = require("../models");
-const {handleSingleUploadFile} = require("../utils/uploadSingleFile");
 const Istruzione = db.istruzioni;
 const Op = db.Sequelize.Op;
 
@@ -8,29 +7,8 @@ const Op = db.Sequelize.Op;
 // Create and Save a new instruction
 exports.create =  (req, res) => {
 
-    console.log(req.headers)
-
-    /*
-    let uploadResult;
-
-
-    try {
-        uploadResult = await handleSingleUploadFile(req,res);
-    } catch (e) {
-        return res.status(422).send({
-           message: [e.message]
-        });
-    }
-
-
-    const { body } = uploadResult;
-    const { file } = uploadResult;
-    console.log("questo è il body: ",body)
-    console.log("questo è il file: ",file)
-    */
-
     // validate req
-    if(!req.body.path) {
+    if(!req.file.path) {
         res.status(400).send({
             message: "Content can not be empty!"
         });
@@ -38,7 +16,7 @@ exports.create =  (req, res) => {
     }
     // Create an Instruction
     const istruzione = {
-        path: req.body.path,
+        path: "http://localhost:9000/uploads/" + req.file.filename,
         title: req.body.title,
         reparto: req.body.reparto
     };

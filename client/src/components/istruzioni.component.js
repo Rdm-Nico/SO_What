@@ -76,18 +76,8 @@ class Istruzione extends Component {
                                 value={currentIstruzione.reparto}
                                 />
                             </div>
-                            <div className="form-group">
-                                <label htmlFor="path">Path</label>
-                                <input
-                                    type="text"
-                                    className="form-control"
-                                    id="path"
-                                    value={currentIstruzione.path}
-                                />
-                            </div>
-                            <div className="form-group">
-                                <input type="file" onChange={(e) => this.setState({file: e.target.files[0]})}/>
-                                <button type="button" onClick={upload}>Upload</button>
+                            <div className="doc-view">
+                                <iframe style={{height: "100vh", width: "90vw"}} src={currentIstruzione.path} title="File-Viewer"></iframe>
                             </div>
                         </form>
                     </div>
