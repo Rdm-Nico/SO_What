@@ -41,15 +41,10 @@ class Istruzione extends Component {
     render() {
         const {currentIstruzione} = this.state;
 
-
-        const upload = () => {
-            const formData = new FormData()
-            formData.append('')
-            formData.append('prova',this.state.file)
-            IstruzioneDataService.create(FormData)
-                .then(res => {})
-                .catch(er => console.log(er))
-        }
+        const docs = [
+            {uri: currentIstruzione.path
+            }
+        ];
         const backToPrevPage = () => {
             window.history.back();
         }
@@ -77,7 +72,8 @@ class Istruzione extends Component {
                                 />
                             </div>
                             <div className="doc-view">
-                                <iframe style={{height: "100vh", width: "90vw"}} src={currentIstruzione.path} title="File-Viewer"></iframe>
+                                <DocViewer requestHeaders={} documents={docs} style={{height: "100vh", width: "90vw"}} />
+
                             </div>
                         </form>
                     </div>

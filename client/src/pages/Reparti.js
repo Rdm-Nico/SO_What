@@ -51,6 +51,54 @@ export const Qualità = () => {
     </div>
   )
 }
+export const Raddrizzatura = () => {
+    return (
+        <div className='reparti'>
+            <h1>Raddrizzatura</h1>
+            <IstruzioniListsReparto name="raddrizzatura"/>
+        </div>
+    )
+}
+export const Lucidatura = () => {
+    return (
+        <div className='reparti'>
+            <h1>Lucidatura</h1>
+            <IstruzioniListsReparto name="lucidatura"/>
+        </div>
+    )
+}
+export const Ufficio_Tecnico = () => {
+    return (
+        <div className='reparti'>
+            <h1>Ufficio Tecnico</h1>
+            <IstruzioniListsReparto name="ufficio tecnico"/>
+        </div>
+    )
+}
+export const Logistica = () => {
+    return (
+        <div className='reparti'>
+            <h1>Logistica</h1>
+            <IstruzioniListsReparto name="logistica"/>
+        </div>
+    )
+}
+export const Produzione = () => {
+    return (
+        <div className='reparti'>
+            <h1>Produzione</h1>
+            <IstruzioniListsReparto name="produzione"/>
+        </div>
+    )
+}
+export const Amministrazione = () => {
+    return (
+        <div className='reparti'>
+            <h1>Amministrazione</h1>
+            <IstruzioniListsReparto name="amministrazione"/>
+        </div>
+    )
+}
 
 export default Reparti;
 
