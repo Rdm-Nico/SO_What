@@ -28,10 +28,10 @@ class Istruzione extends Component {
     getIstruzione(id) {
         IstruzioneDataService.get(id)
             .then(response => {
+                console.log(response)
                 this.setState({
                     currentIstruzione: response.data
                 });
-                console.log(response.data);
             })
             .catch(e => {
                 console.log(e);
@@ -41,8 +41,8 @@ class Istruzione extends Component {
     render() {
         const {currentIstruzione} = this.state;
 
-        const docs = [
-            {uri: currentIstruzione.path
+        const docs = [{
+            uri: currentIstruzione.path, fileTypes:['png','pptx']
             }
         ];
         const backToPrevPage = () => {
@@ -72,7 +72,7 @@ class Istruzione extends Component {
                                 />
                             </div>
                             <div className="doc-view">
-                                <DocViewer requestHeaders={} documents={docs} style={{height: "100vh", width: "90vw"}} />
+                                <DocViewer pluginRenderers={DocViewerRenderers} requestHeaders={{'mode':'no-cors'}} documents={docs} style={{height: "100vh", width: "90vw"}} />
 
                             </div>
                         </form>

@@ -4,6 +4,11 @@ const Op = db.Sequelize.Op;
 
 
 
+// copy and pass the response for add the CORS headers
+exports.copy = (req,res) => {
+
+}
+
 // Create and Save a new instruction
 exports.create =  (req, res) => {
 
@@ -36,12 +41,11 @@ exports.create =  (req, res) => {
 // find a single instructions with an id
 exports.findOne = (req, res) =>{
     const id = req.params.id;
+    console.log(req.headers)
 
     Istruzione.findByPk(id)
         .then(data => {
             if(data) {
-                console.log(data.getDataValue("path"))
-                //data.set("path","www.ciao.com")
                 res.send(data);
             } else {
                 res.status(404).send({
@@ -59,6 +63,7 @@ exports.findOne = (req, res) =>{
 // Update an instructions by the id in the req
 exports.update = (req, res) =>{
     const id = req.params.id;
+
 
     Istruzione.update(req.body, { where: { id : id} })
         .then(num => {

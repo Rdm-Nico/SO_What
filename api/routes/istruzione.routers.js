@@ -1,4 +1,3 @@
-const multer = require("multer")
 const moduleF = require("../utils/uploadSingleFile")
 module.exports = app => {
     const istruzioni = require("../controllers/istruzioni.controller")
@@ -8,11 +7,9 @@ module.exports = app => {
     // Create a new Instruction
     router.post("/", moduleF.upload, istruzioni.create);
 
-    function uploadFile(req, res){
-        console.log(req.file);
-        res.json({message: "upload the file"});
-    }
 
+    // Retrieve the file from his url
+    router.get("/uploads", istruzioni)
     // Retrieve all Instructions or by name
     router.get("/", istruzioni.findAll);
 
