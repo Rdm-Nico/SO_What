@@ -42,7 +42,7 @@ class Istruzione extends Component {
         const {currentIstruzione} = this.state;
 
         const docs = [{
-            uri: currentIstruzione.path, fileTypes:['png','pptx']
+            uri: 'http://localhost:9000/api/istruzioni/view-file/eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXlsb2FkIjoiMjIiLCJpYXQiOjE3MTIyNDM0MTUsImV4cCI6MTcxMjI0NTIxNX0.SdCyaOGBl0Hvbz_G6EOVUUV_DGiGh2SEArkM-kwoYOU', fileTypes:['pptx']
             }
         ];
         const backToPrevPage = () => {
@@ -72,7 +72,7 @@ class Istruzione extends Component {
                                 />
                             </div>
                             <div className="doc-view">
-                                <DocViewer pluginRenderers={DocViewerRenderers} requestHeaders={{'mode':'no-cors'}} documents={docs} style={{height: "100vh", width: "90vw"}} />
+                                <DocViewer pluginRenderers={DocViewerRenderers}  documents={docs} style={{height: "100vh", width: "90vw"}} />
 
                             </div>
                         </form>

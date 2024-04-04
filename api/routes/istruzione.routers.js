@@ -7,9 +7,6 @@ module.exports = app => {
     // Create a new Instruction
     router.post("/", moduleF.upload, istruzioni.create);
 
-
-    // Retrieve the file from his url
-    router.get("/uploads", istruzioni)
     // Retrieve all Instructions or by name
     router.get("/", istruzioni.findAll);
 
@@ -27,6 +24,10 @@ module.exports = app => {
 
     // Delete all Instructions
     router.delete("/", istruzioni.deleteAll);
+
+    // generate link to view the file
+    router.get("/:id/display", istruzioni.generateLink)
+    router.get("/view-file/:token", istruzioni.viewFile)
 
     app.use('/api/istruzioni', router);
 };

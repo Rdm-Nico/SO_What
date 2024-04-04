@@ -1,13 +1,4 @@
 module.exports = {
-    HOST: "localhost",
-    USER: "root",
-    PASSWORD: "m8oZsijBcKdQbTw",
-    DB: "schedeop",
-    dialect: "mysql",
-    pool: {
-        max: 15,
-        min: 0,
-        acquire: 30000,
-        idle: 10000
-    }
+    TOKEN_SECRET: "0761c5b6331fe707e70f6598a369b27b74cf56dd3fd687d3bb7048ccd91d3fe3",
+    PORT: 9000
 };

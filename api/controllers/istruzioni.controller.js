@@ -1,13 +1,10 @@
 const db = require("../models");
 const Istruzione = db.istruzioni;
 const Op = db.Sequelize.Op;
+const jwt = require('jsonwebtoken')
+const config = require('../utils/config/config')
 
 
-
-// copy and pass the response for add the CORS headers
-exports.copy = (req,res) => {
-
-}
 
 // Create and Save a new instruction
 exports.create =  (req, res) => {
@@ -21,7 +18,7 @@ exports.create =  (req, res) => {
     }
     // Create an Instruction
     const istruzione = {
-        path: "http://localhost:9000/uploads/" + req.file.filename,
+        path: req.file.path,
         title: req.body.title,
         reparto: req.body.reparto
     };
@@ -41,11 +38,14 @@ exports.create =  (req, res) => {
 // find a single instructions with an id
 exports.findOne = (req, res) =>{
     const id = req.params.id;
-    console.log(req.headers)
+
 
     Istruzione.findByPk(id)
         .then(data => {
             if(data) {
+                json_data = data.toJSON()
+                console.log(json_data.path)
+
                 res.send(data);
             } else {
                 res.status(404).send({
@@ -155,3 +155,65 @@ exports.findByReparto = (req, res) =>{
 
     //TODO: guardare per fare un Server side Pagination con sequelize
 };
+
+exports.displayFile = (req, res) =>{
+    const id = req.params.id;
+
+
+    Istruzione.findByPk(id)
+        .then(data => {
+            if(data) {
+                json_data = data.toJSON()
+                res.sendFile(json_data.path)
+            } else {
+                res.status(404).send({
+                    message: 'Cannot find instruction with id=' + id
+                });
+            }
+        })
+        .catch(err => {
+            res.status(500).send({
+                message: "Error retrieving instruction with id= " +id
+            });
+        });
+};
+
+function generateAccessToken(payload){
+    return jwt.sign({payload: payload},config.TOKEN_SECRET,{expiresIn: 1800});
+}
+
+// create a JWT for view the file
+exports.generateLink = (req, res) =>{
+    const id = req.params.id;
+    const token = generateAccessToken(id)
+    //const url= `${req.protocol}://${req.hostname}:9000/api/istruzioni/view-file/${token}`;
+    return res.json({token});
+}
+
+exports.viewFile = (req, res) =>{
+    const token = req.params.token
+    const conn = req.headers.connection
+    console.log(conn)
+    try {
+        const id = jwt.verify(token,config.TOKEN_SECRET).payload;
+        console.log(id)
+        Istruzione.findByPk(id)
+            .then(data => {
+                if(data) {
+                    json_data = data.toJSON()
+                    res.sendFile(json_data.path)
+                } else {
+                    res.status(404).send({
+                        message: 'Cannot find instruction with id=' + id
+                    });
+                }
+            })
+            .catch(err => {
+                res.status(500).send({
+                    message: "Error retrieving instruction with id= " +id
+                });
+            });
+    } catch(err){
+        return res.status(400).json({message: err.message})
+    }
+}

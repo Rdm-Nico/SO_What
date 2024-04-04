@@ -89,7 +89,7 @@ class AddIstruzione extends Component {
                 {this.state.submitted ? (
                     <div>
                         <h4>File inviati correttamente !</h4>
-                        <div>{this.state.url && <img  src={this.state.url} alt="Image from API" />}</div>
+
                         <button className="btn btn-success" onClick={this.newIstruzione}>
                             Add
                         </button>
