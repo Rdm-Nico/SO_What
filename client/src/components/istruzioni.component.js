@@ -3,6 +3,7 @@ import IstruzioneDataService from "../services/istruzione.service";
 import { withRouter } from "../common/with-router";
 
 
+
 class Istruzione extends Component {
 
     constructor(props){
@@ -38,6 +39,7 @@ class Istruzione extends Component {
             .catch(e => {
                 console.log(e);
             });
+        /*
         IstruzioneDataService.get_token(id)
             .then(response =>{
                 console.log('token: ',response.data.token)
@@ -55,7 +57,7 @@ class Istruzione extends Component {
                         // create uri
                         let imgUrl = URL.createObjectURL(blob)
                         console.log('url: ', imgUrl)
-                        */
+
 
                     })
                     .catch(e => {
@@ -65,13 +67,12 @@ class Istruzione extends Component {
             .catch(e => {
                 console.log(e);
             });
+            */
 
     }
 
     render() {
         const {currentIstruzione} = this.state;
-        const {file} = this.state
-        console.log('file: ',file)
 
         const backToPrevPage = () => {
             window.history.back();
@@ -100,11 +101,12 @@ class Istruzione extends Component {
                                 />
                             </div>
 
-                            <iframe src={"http://localhost:9000/api/istruzioni/view-file/eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXlsb2FkIjoiMjMiLCJpYXQiOjE3MTUyNTQ5ODQsImV4cCI6MTcxNTI1Njc4NH0.BbZtgG4QnjqMlK1wcXQfo4zkrVQJKnvLOjyxndybRc0"}
+                            <iframe src={currentIstruzione.path}
                                     title={currentIstruzione.title}
                                     width={2000}
                                 height={900}
                             ></iframe>
+
 
 
                         </form>

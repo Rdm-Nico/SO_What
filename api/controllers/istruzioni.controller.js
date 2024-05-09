@@ -18,7 +18,7 @@ exports.create =  (req, res) => {
     }
     // Create an Instruction
     const istruzione = {
-        path: req.file.path,
+        path: "http://localhost:9000/uploads/" + req.file.filename,
         title: req.body.title,
         reparto: req.body.reparto
     };
@@ -64,10 +64,13 @@ exports.findOne = (req, res) =>{
 exports.update = (req, res) =>{
     const id = req.params.id;
 
+    console.log(req.body)
+    console.log(id)
 
     Istruzione.update(req.body, { where: { id : id} })
         .then(num => {
-            if(num === 1){
+
+            if(num[0] === 1){
                 res.send({
                     message: "Instruction was updated successfully."
                 });
