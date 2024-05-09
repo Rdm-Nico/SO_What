@@ -9,6 +9,15 @@ class IstruzioneDataService {
     get(id) {
         return http.get(`/istruzioni/${id}`);
     }
+    // get token for display the pdf
+    get_token(id){
+        return http.get(`/istruzioni/${id}/display`);
+    }
+
+    // get file_uri from token
+    get_file(token){
+        return http.get(`/istruzioni/view-file/${token}`);
+    }
     create(data){
         return http.post("/istruzioni", data);
     }

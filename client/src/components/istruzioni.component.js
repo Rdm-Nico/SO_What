@@ -1,9 +1,10 @@
 import React, {Component} from 'react';
 import IstruzioneDataService from "../services/istruzione.service";
 import { withRouter } from "../common/with-router";
-import DocViewer, {DocViewerRenderers} from "@cyntler/react-doc-viewer";
+
 
 class Istruzione extends Component {
+
     constructor(props){
         super(props);
 
@@ -17,7 +18,7 @@ class Istruzione extends Component {
                 reparto: ""
             },
             file: null,
-            message: ""
+            token: ""
         };
     }
 
@@ -26,6 +27,7 @@ class Istruzione extends Component {
         this.getIstruzione(this.props.router.params.id);
     }
     getIstruzione(id) {
+        let token;
         IstruzioneDataService.get(id)
             .then(response => {
                 console.log(response)
@@ -36,15 +38,41 @@ class Istruzione extends Component {
             .catch(e => {
                 console.log(e);
             });
+        IstruzioneDataService.get_token(id)
+            .then(response =>{
+                console.log('token: ',response.data.token)
+                // display pdf
+                IstruzioneDataService.get_file(response.data.token)
+                    .then(response =>{
+                        console.log('response: ', response.data)
+                        this.setState({
+                            file: response.data
+                        })
+                        /*
+                        // create blob
+                        const blob = new Blob([response.data], {type:'application/pdf'})
+                        console.log(blob)
+                        // create uri
+                        let imgUrl = URL.createObjectURL(blob)
+                        console.log('url: ', imgUrl)
+                        */
+
+                    })
+                    .catch(e => {
+                        console.log(e);
+                    });
+            })
+            .catch(e => {
+                console.log(e);
+            });
+
     }
 
     render() {
         const {currentIstruzione} = this.state;
+        const {file} = this.state
+        console.log('file: ',file)
 
-        const docs = [{
-            uri: 'http://localhost:9000/api/istruzioni/view-file/eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXlsb2FkIjoiMjIiLCJpYXQiOjE3MTIyNDM0MTUsImV4cCI6MTcxMjI0NTIxNX0.SdCyaOGBl0Hvbz_G6EOVUUV_DGiGh2SEArkM-kwoYOU', fileTypes:['pptx']
-            }
-        ];
         const backToPrevPage = () => {
             window.history.back();
         }
@@ -71,10 +99,14 @@ class Istruzione extends Component {
                                 value={currentIstruzione.reparto}
                                 />
                             </div>
-                            <div className="doc-view">
-                                <DocViewer pluginRenderers={DocViewerRenderers}  documents={docs} style={{height: "100vh", width: "90vw"}} />
 
-                            </div>
+                            <iframe src={"http://localhost:9000/api/istruzioni/view-file/eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXlsb2FkIjoiMjMiLCJpYXQiOjE3MTUyNTQ5ODQsImV4cCI6MTcxNTI1Njc4NH0.BbZtgG4QnjqMlK1wcXQfo4zkrVQJKnvLOjyxndybRc0"}
+                                    title={currentIstruzione.title}
+                                    width={2000}
+                                height={900}
+                            ></iframe>
+
+
                         </form>
                     </div>
                 ):(
