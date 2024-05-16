@@ -1,12 +1,20 @@
 import React from 'react';
-import {Navigate} from "react-router-dom"
+import {Link, Navigate} from "react-router-dom"
 
 import "./SearchResult.css"
 
+const linkStyle = {
+    textDecoration: "none",
+    color: 'black',
+    fontFamily: 'Merriweather'
+};
+
 export const SearchResult = ({result}) => {
     return (
-        <div className="search-result" onClick={(e) => <Navigate to={"/istruzione/" + result.id} replace={true}/>}>
+        <Link className="link-result" to={"/istruzione/" + result.id} style={linkStyle} >
+        <div className="search-result">
             {result.title} <span className={result.reparto}>{result.reparto}</span> </div>
+        </Link>
     );
 }
 

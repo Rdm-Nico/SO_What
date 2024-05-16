@@ -12,7 +12,7 @@ import {
   Lucidatura,
   Produzione, Ufficio_Tecnico, Amministrazione
 } from './pages/Reparti';
-import Istruzione from "./components/istruzioni.component";
+import Istruzione from "./components/istruzione_comp_hooks";
 import AddIstruzione from "./components/add-istruzione.component";
 import Home from './pages/Home';
 import React, {Component} from "react";
@@ -30,7 +30,7 @@ class App extends Component{
   render(){
   return (
     <div>
-      
+
     <BrowserRouter>
       <Sidebar />
       <Routes>
@@ -46,7 +46,7 @@ class App extends Component{
         <Route path="/reparti/ufficio tecnico" exact Component={Ufficio_Tecnico} />
         <Route path="/reparti/amministrazione" exact Component={Amministrazione} />
 
-        <Route path="/istruzione/:id" element={<Istruzione />} />
+        <Route path="/istruzione/:id" exact Component={Istruzione} />
         <Route path="/istruzione/upload" element={<AddIstruzione />} />
         <Route path="*" element={
           <div className='home'>
