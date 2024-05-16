@@ -8,7 +8,7 @@ export const SidebarData = [
 
     {
         title:'Reparti',
-        path:'/reparti',
+        path:'/reparti/all',
         icon: <AiIcons.AiFillHome />,
         iconClosed: <RiIcons.RiArrowDownSFill />,
         iconOpened: <RiIcons.RiArrowUpSFill />,

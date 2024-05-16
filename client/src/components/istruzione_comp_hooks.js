@@ -3,7 +3,7 @@ import IstruzioneDataService from "../services/istruzione.service";
 import { useParams,useNavigate } from 'react-router-dom';
 
 export default function Istruzione() {
-    const [istruzione,setIstruzione] = useState(() => GetIstruzione());
+    const [istruzione,setIstruzione] = useState(GetIstruzione);
     let navigate = useNavigate();
 
     function GetIstruzione() {

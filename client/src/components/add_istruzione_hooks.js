@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import IstruzioneDataService from "../services/istruzione.service";
-import { useParams,useNavigate } from 'react-router-dom';
+import {useNavigate } from 'react-router-dom';
 
 export default function AddIstruzione(){
     const [istruzione, setIstruzione] = useState({

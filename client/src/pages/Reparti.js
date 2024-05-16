@@ -1,6 +1,6 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom';
-import IstruzioniListsReparto from "../api/istruzioni-list-reparto.api";
+import IstruzioniListsReparto from "../components/istruzioni-list-reparto.api";
 
 
 

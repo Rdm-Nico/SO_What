@@ -6,13 +6,13 @@ export default class IstruzioniListsReparto extends Component{
         super(props);
         this.refreshList = this.refreshList.bind(this);
         this.searchReparto = this.searchReparto.bind(this);
-
         this.state = {
             istruzioni: [],
             currentIstruzione: null,
             currentIndex: -1,
             reparto : props.name
         };
+
     }
     componentDidMount() {
         this.searchReparto();

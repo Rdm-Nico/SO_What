@@ -8,12 +8,14 @@ import {
   Tornitura,
   Rettifica,
   Qualità,
+  Logistica,
   Raddrizzatura,
   Lucidatura,
   Produzione, Ufficio_Tecnico, Amministrazione
 } from './pages/Reparti';
+import IstruzioniListsReparto from "./components/istruzioni_list_reparto_hooks"
 import Istruzione from "./components/istruzione_comp_hooks";
-import AddIstruzione from "./components/add-istruzione.component";
+import AddIstruzione from "./components/add_istruzione_hooks";
 import Home from './pages/Home';
 import React, {Component} from "react";
 
@@ -35,19 +37,9 @@ class App extends Component{
       <Sidebar />
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/reparti" exact Component={Reparti} />
-        <Route path="/reparti/tornitura" exact Component={Tornitura} />
-        <Route path="/reparti/dentatura" exact Component={Dentatura} />
-        <Route path="/reparti/rettifica" exact Component={Rettifica} />
-        <Route path="/reparti/raddrizzatura" exact Component={Raddrizzatura} />
-        <Route path="/reparti/lucidatura" exact Component={Lucidatura} />
-        <Route path="/reparti/produzione" exact Component={Produzione} />
-        <Route path="/reparti/qualità" exact Component={Qualità} />
-        <Route path="/reparti/ufficio tecnico" exact Component={Ufficio_Tecnico} />
-        <Route path="/reparti/amministrazione" exact Component={Amministrazione} />
-
+        <Route path="/reparti/:reparto" exact Component={IstruzioniListsReparto} />
         <Route path="/istruzione/:id" exact Component={Istruzione} />
-        <Route path="/istruzione/upload" element={<AddIstruzione />} />
+        <Route path="/istruzione/upload" exact Component={AddIstruzione} />
         <Route path="*" element={
           <div className='home'>
             <h2> 404 Page not found</h2>
