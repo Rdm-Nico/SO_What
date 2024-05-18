@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import IstruzioneDataService from "../services/istruzione.service"
+import IstruzioneDataService from "../../services/istruzione.service"
 import { useParams,useNavigate } from 'react-router-dom';
 export default function IstruzioniListsReparto(){
     const {reparto} = useParams()
@@ -53,32 +53,42 @@ export default function IstruzioniListsReparto(){
                 currentIndex: -1
             })
         }
-
+        // line of code for disable a warning:
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [reparto]);
 
     return(
         <div>
-            { list ? (
-            <div className='TableList'>
-                <table>
-                    <thead>
-                    <tr>
-                        <th>Titolo</th>
-                        <th>Reparto</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    {
-                        list.istruzioni.map((istruzione, index) =>
-                            <tr key={index}>
-                                <td className='table-name'>{istruzione.title}</td>
-                                <td className='table-reparto'>{istruzione.reparto}</td>
-                            </tr>
-                        )
-                    }
-                    </tbody>
-                </table>
-            </div> ) : (
+            <h1>{reparto}</h1>
+            {list ? (
+                <div className='TableList'>
+                    <table>
+                        <thead>
+                        <tr>
+                            <th>Titolo</th>
+                            <th>Reparto</th>
+                            <th>Azione</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {
+                            list.istruzioni.map((istruzione, index) =>
+
+                                <tr key={index}>
+                                    <td className='table-name'>{istruzione.title}</td>
+                                    <td className='table-reparto'>{istruzione.reparto}</td>
+                                    <td className="table-reparto">
+                                        <button onClick={() => {
+                                            navigate("/istruzione/" + istruzione.id)
+                                        }}>GO
+                                        </button>
+                                    </td>
+                                </tr>
+                            )
+                        }
+                        </tbody>
+                    </table>
+                </div>) : (
                 <div>
                     <h1> Errore nella pagina </h1>
                     <button onClick={() => {

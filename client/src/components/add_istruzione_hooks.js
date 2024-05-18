@@ -1,6 +1,8 @@
 import React, {useState} from 'react';
 import IstruzioneDataService from "../services/istruzione.service";
 import {useNavigate } from 'react-router-dom';
+import {SidebarData} from "./SideBar/SidebarData";
+
 
 export default function AddIstruzione(){
     const [istruzione, setIstruzione] = useState({
@@ -13,6 +15,7 @@ export default function AddIstruzione(){
         submitted: false
     });
     let navigate = useNavigate();
+    const reparti = SidebarData[0].subNav
 
     function handleTitleChange(e){
         setIstruzione({
@@ -21,6 +24,7 @@ export default function AddIstruzione(){
         })
     }
     function handleRepartoChange(e){
+        console.log(e.target.value)
         setIstruzione({
             ...istruzione,
             reparto: e.target.value
@@ -105,16 +109,16 @@ export default function AddIstruzione(){
                     </div>
 
                     <div className="form-group">
-                        <label htmlFor="reparto">Reparto</label>
-                        <input
-                            type="text"
-                            className="form-control"
-                            id="reparto"
-                            required
-                            value={istruzione.reparto}
-                            onChange={handleRepartoChange}
-                            name="reparto"
-                        />
+                        <label htmlFor="reparto">Reparto:</label>
+                        <select  name="reparti_list" className="form-control" id="reparto" onChange={handleRepartoChange}>
+                            {
+                                 reparti.map((reparto,index) => (
+                                         <option key={index} value={reparto.title}> {reparto.title}</option>
+                                     )
+                                 )
+                            }
+                        </select>
+
                     </div>
                     <div className="form-group">
                         <input

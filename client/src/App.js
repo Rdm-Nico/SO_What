@@ -2,18 +2,7 @@
 import './App.css';
 import Sidebar from './components/SideBar/Sidebar';
 import {BrowserRouter, Routes, Route} from 'react-router-dom';
-import {
-  Reparti,
-  Dentatura,
-  Tornitura,
-  Rettifica,
-  Qualità,
-  Logistica,
-  Raddrizzatura,
-  Lucidatura,
-  Produzione, Ufficio_Tecnico, Amministrazione
-} from './pages/Reparti';
-import IstruzioniListsReparto from "./components/istruzioni_list_reparto_hooks"
+import IstruzioniListsReparto from "./components/List_items/istruzioni_list_reparto_hooks"
 import Istruzione from "./components/istruzione_comp_hooks";
 import AddIstruzione from "./components/add_istruzione_hooks";
 import Home from './pages/Home';
