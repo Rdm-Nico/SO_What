@@ -35,7 +35,8 @@ export default function AddIstruzione(){
             // facciamo il parsing per tirare via il .doc .pdf ecc...
             const original_name = name
             const startIndex = original_name.indexOf('.')
-            const new_name = original_name.slice(0,startIndex);
+            let new_name;
+            new_name = original_name.slice(0, startIndex);
 
             return new_name
         }
