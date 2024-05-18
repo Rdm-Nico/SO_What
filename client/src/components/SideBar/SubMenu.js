@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import {Link} from 'react-router-dom';
 import styled from 'styled-components';
+import showSidebar from './Sidebar'
 
 const SidebarLink = styled(Link)`
     display: flex;
@@ -44,13 +45,15 @@ const DropdownLink = styled(Link)`
 `;
 
 const SubMenu = ({item}) => {
-const [subnav, setSubnav] = useState(false)
-
-const showSubNav = () => setSubnav(!subnav)
+    const [subnav, setSubnav] = useState(false)
+    const showSubNav = () => setSubnav(!subnav)
 
     return (
         <>
-        <SidebarLink to={item.path} onClick={item.subNav && showSubNav}>
+        <SidebarLink to={item.path} onClick={
+            // this code show how to handle the showing or not of the sidebar
+            (item.subNav && showSubNav) || ( !item.subNav && showSidebar)
+        }>
         <div>
             {item.icon}
             <SidebarLabel>{item.title}</SidebarLabel>

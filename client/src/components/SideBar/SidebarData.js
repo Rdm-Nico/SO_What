@@ -64,5 +64,10 @@ export const SidebarData = [
                 icon: <IoIcons.IoIosPaper />,
             }
         ]
+    },
+    {
+        title:'Upload Istruzione',
+        path:'/istruzione/upload',
+        icon: <AiIcons.AiFillHome />,
     }
 ]
