@@ -25,7 +25,7 @@ module.exports = app => {
     // Delete all Instructions
     router.delete("/", istruzioni.deleteAll);
 
-    // generate link to view the file
+    // generate link to view the file TODO: eliminate it !
     router.get("/:id/display", istruzioni.generateLink)
     router.get("/view-file/:token", istruzioni.viewFile)
 

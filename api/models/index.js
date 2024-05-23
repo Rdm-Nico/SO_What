@@ -1,6 +1,7 @@
 const dbConfig = require("../utils/config/configdb");
 
-const Sequelize = require("sequelize");
+const {Sequelize, DataTypes} = require("sequelize");
+// Connecting to the db
 const sequelize = new Sequelize(dbConfig.DB, dbConfig.USER, dbConfig.PASSWORD,{
     host: dbConfig.HOST,
     dialect: dbConfig.dialect,
@@ -16,8 +17,10 @@ const db = {};
 
 db.Sequelize = Sequelize;
 db.sequelize = sequelize;
+db.DataTypes = DataTypes;
 
 db.istruzioni = require("./istruzioni.models")(sequelize, Sequelize);
-db.utenti = require("./utenti.models")(sequelize,Sequelize);
+db.utenti = require("./utenti.models")(sequelize, Sequelize, DataTypes);
+db.ruoli = require("./ruoli.models")(sequelize, Sequelize)
 
 module.exports = db;

@@ -2,7 +2,7 @@ const db = require("../models");
 const Istruzione = db.istruzioni;
 const Op = db.Sequelize.Op;
 const jwt = require('jsonwebtoken')
-const config = require('../utils/config/config')
+const config = require('../utils/config/config_token')
 
 
 

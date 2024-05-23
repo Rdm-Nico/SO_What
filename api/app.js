@@ -2,8 +2,11 @@ var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
+var cookieSession = require('cookie-session')
 var logger = require('morgan');
 var cors = require("cors");
+const Cookieconfig = require("../api/utils/config/config_token")
+
 var app = express();
 
 // view engine setup
@@ -31,6 +34,16 @@ db.sequelize.sync()
     .catch((err) =>{
       console.log("Failed to sync db: " + err.message);
     });
+
+// create the middleware to stores the session data on the client within cookie
+app.use(
+    cookieSession({
+        name: Cookieconfig.NAME_SESSION,
+        keys: Cookieconfig.SECRET_KEYS,
+        httpOnly: Cookieconfig.HTTP_ONLY,
+        maxAge: Cookieconfig.MAX_AGE
+    })
+)
 
 app.use(logger('dev'));
 app.use(express.json());
