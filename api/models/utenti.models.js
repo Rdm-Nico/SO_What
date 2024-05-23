@@ -7,7 +7,7 @@ module.exports = (sequelize, Sequelize, DataTypes) => {
         password: {
             type: Sequelize.STRING
         },
-        role_id:[
+        role_id:
             {
                 type: DataTypes.INTEGER,
                 references: {
@@ -15,12 +15,12 @@ module.exports = (sequelize, Sequelize, DataTypes) => {
                     key:"id"
                 }
             }
-        ],
+        ,
         updatedAt: {
             type: Sequelize.DATE
         }
     }, {
-        // questo permette di evitare di cambiare il nome della tabella in: "Utentis"
+        // questo permette di evitare di cambiare il nome della tabella in: "utentis"
         freezeTableName: true,
 
         // questo evita di non aggiungere gli attributi updateAt e createAt automatici
