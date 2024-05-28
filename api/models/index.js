@@ -21,7 +21,17 @@ db.DataTypes = DataTypes;
 
 db.istruzioni = require("./istruzioni.models")(sequelize, Sequelize);
 db.utenti = require("./utenti.models")(sequelize, Sequelize, DataTypes);
-db.ruoli = require("./ruoli.models")(sequelize, Sequelize)
+db.ruoli = require("./ruoli.models")(sequelize, Sequelize);
+db.refreshToken = require("../models/refreshToken.models")(sequelize, Sequelize);
+
+// create the association one-to-one with User model
+db.refreshToken.belongsTo(db.utenti, {
+    foreignKey: "userId", targetKey: "id"
+});
+db.utenti.hasOne(db.refreshToken, {
+    foreignKey: "userId", targetKey: "id"
+});
+
 // type of role
 db.ROLES = ["user","admin","moderator"];
 

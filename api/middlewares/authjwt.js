@@ -4,13 +4,22 @@
 *   - check if roles of the user contains required or not
 * */
 const jwt = require("jsonwebtoken")
+const {TokenExpiredError} = jwt
 const config = require("../utils/config/config_auth")
 const db = require("../models")
 const User = db.utenti
 const Role = db.ruoli
 
+
+const catchError = (err, res) => {
+    if (err instanceof TokenExpiredError) {
+        return res.status(401).send({message: "Unauthorized! Access Token was expired!" });
+    }
+    return res.sendStatus(401).send({message: "Unauthorized!"});
+}
+
 verifyToken = (req, res, next) => {
-    let token = req.session.token;
+    let token = req.headers["x-access-token"];
 
     if(!token){
         return res.status(403).send({ message: "No token provided!" });
@@ -20,7 +29,7 @@ verifyToken = (req, res, next) => {
     jwt.verify(token, config.SECRET_KEY,
         (err, decoded) => {
             if(err){
-                return res.status(401).send({message: "Unauthorized!"});
+                return catchError(err,res)
             }
             req.userId = decoded.id;
             next();
