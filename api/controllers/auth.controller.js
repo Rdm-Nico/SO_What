@@ -17,6 +17,7 @@ var bcrypt = require("bcrypt")
 
 exports.signup =(req, res) => {
     // take the user's role and search in the Role's table
+    console.log("questa riga non dovrebbe comparire")
     Role.findOne({ where: {name: req.body.role}})
         .then(role => {
             const user = {
@@ -42,12 +43,13 @@ exports.signup =(req, res) => {
 };
 
 exports.signin = (req, res) =>{
-    User.findOne({
-        username: req.body.username,
+    User.findOne({ where: {
+        username: req.body.username}
     }).then(user => {
             if(!user) {
                 return res.status(404).send({ message: "User Not found." });
             }
+
             let passwordIsValid = bcrypt.compareSync(
                 req.body.password,
                 user.password
@@ -62,21 +64,20 @@ exports.signin = (req, res) =>{
                     allowInsecureKeySizes: true,
                     expiresIn: 86400 // 24 hours
                 });
-            let authoritie = "";
             Role.findByPk(user.role_id)
                 .then(role => {
-                     authoritie = "ROLE_" + role.name.toUpperCase();
+                     let authoritie = "ROLE_" + role.name.toUpperCase();
+
+                    req.session.token = token;
+                    res.status(200).send({
+                        id: user.id,
+                        username: user.username,
+                        role: authoritie
+                    });
                 })
                 .catch(err => {
                     res.status(500).send({ message: err || `Some error occured while sign in`});
                 })
-
-            req.session.token = token;
-            res.status(200).send({
-                id: user.id,
-                username: user.username,
-                role: authoritie
-            });
         })
         .catch(err => {
             return res.status(404).send({ message: err.message || "User Not found." });

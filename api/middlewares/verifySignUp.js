@@ -13,25 +13,25 @@ checkDuplicateUsername = (req, res, next) =>{
             username: req.body.username
         }
     }).then( user => {
-      if (user){
-          res.status(400).send({message:"Errore! Username esiste già!"});
+      if (user) {
+          return res.status(400).send({message: "Errore! Username esiste già!"});
       }
+      next(); // Only call next if no user was found
     })
     .catch(err => {
         res.status(500).send({
             message: err.message || "Some error occured while creating the Instruction."
         });
     });
-    next();
+
 };
 
 checkRoleExisted = (req, res, next) => {
     if(req.body.role){
         if(!ROLES.includes(req.body.role)){
-            res.status(400).send({
+            return res.status(400).send({
                 message: `Failed! Role ${req.body.role} does not exist!`
             });
-            return;
         }
     }
     next();

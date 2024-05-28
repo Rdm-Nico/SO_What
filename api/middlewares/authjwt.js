@@ -7,7 +7,7 @@ const jwt = require("jsonwebtoken")
 const config = require("../utils/config/config_auth")
 const db = require("../models")
 const User = db.utenti
-const ROLES = db.ROLES
+const Role = db.ruoli
 
 verifyToken = (req, res, next) => {
     let token = req.session.token;
@@ -31,15 +31,20 @@ isAdmin = (req, res, next) => {
     User.findByPk(req.userId)
         .then(user => {
             // search if the user is an admin
-            const role = user.toJSON().name
-            console.log(role)
-
-            if(role === "admin"){
-                next();
-            }
-            else{
-                res.status(403).send({message: "Require Admin Role!"});
-            }
+            Role.findByPk(user.role_id)
+                .then(role => {
+                    if(role.name === "admin" ||role.name === "moderator" ){
+                        next();
+                    }
+                    else{
+                        return res.status(403).send({message: "Require Admin Role!"});
+                    }
+                })
+                .catch(err => {
+                    res.status(500).send({
+                        message: err.message || "Some error occured while accessing the mod."
+                    });
+                });
         })
         .catch(err => {
             res.status(500).send({ message: err || `Some error occured while search if id=${req.userId} is a Admin`});
@@ -50,15 +55,21 @@ isModerator = (req, res, next) => {
     User.findByPk(req.userId)
         .then(user => {
             // search if the user is an admin
-            const role = user.toJSON().name
-            console.log(role)
 
-            if(role === "moderator"){
-                next();
-            }
-            else{
-                res.status(403).send({message: "Require Moderator Role!"});
-            }
+            Role.findByPk(user.role_id)
+                .then(role => {
+                    if(role.name === "moderator"){
+                        next();
+                    }
+                    else{
+                        return res.status(403).send({message: "Require Moderator Role!"});
+                    }
+                })
+                .catch(err => {
+                    res.status(500).send({
+                        message: err.message || "Some error occured while accessing the mod."
+                    });
+                });
         })
         .catch(err => {
             res.status(500).send({ message: err || `Some error occured while search if id=${req.userId} is a Moderator`});
