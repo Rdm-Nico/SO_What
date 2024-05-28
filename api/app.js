@@ -72,7 +72,10 @@ app.use(cors({
     origin: 'http://localhost:3000'
 }));
 
+// routes
 require("./routes/istruzione.routers")(app)
+require("./routes/auth.routes")(app)
+require("./routes/user.routes")(app)
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

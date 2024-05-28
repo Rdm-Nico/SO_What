@@ -7,7 +7,7 @@ const jwt = require("jsonwebtoken")
 const config = require("../utils/config/config_auth")
 const db = require("../models")
 const User = db.utenti
-const Role = db.ruoli
+const ROLES = db.ROLES
 
 verifyToken = (req, res, next) => {
     let token = req.session.token;
@@ -30,10 +30,44 @@ verifyToken = (req, res, next) => {
 isAdmin = (req, res, next) => {
     User.findByPk(req.userId)
         .then(user => {
-            Role.f
+            // search if the user is an admin
+            const role = user.toJSON().name
+            console.log(role)
+
+            if(role === "admin"){
+                next();
+            }
+            else{
+                res.status(403).send({message: "Require Admin Role!"});
+            }
         })
         .catch(err => {
             res.status(500).send({ message: err || `Some error occured while search if id=${req.userId} is a Admin`});
         })
 }
 
+isModerator = (req, res, next) => {
+    User.findByPk(req.userId)
+        .then(user => {
+            // search if the user is an admin
+            const role = user.toJSON().name
+            console.log(role)
+
+            if(role === "moderator"){
+                next();
+            }
+            else{
+                res.status(403).send({message: "Require Moderator Role!"});
+            }
+        })
+        .catch(err => {
+            res.status(500).send({ message: err || `Some error occured while search if id=${req.userId} is a Moderator`});
+        })
+}
+
+const authJwt = {
+    verifyToken,
+    isAdmin,
+    isModerator
+};
+module.exports = authJwt
