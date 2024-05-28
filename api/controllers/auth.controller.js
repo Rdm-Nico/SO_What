@@ -16,28 +16,28 @@ var jwt = require("jsonwebtoken")
 var bcrypt = require("bcrypt")
 
 exports.signup =(req, res) => {
-    const user = new User({
-        username: req.body.username,
-        password: bcrypt.hashSync(req.body.password,8)
-    });
     // take the user's role and search in the Role's table
     Role.findOne({ where: {name: req.body.role}})
         .then(role => {
-            user.role_id = role.id
+            const user = {
+                username: req.body.username,
+                password: bcrypt.hashSync(req.body.password,8),
+                role_id: role.id
+            };
+            // save the user
+            User.create(user)
+                .then(
+                    res.send({message: "User was registered successfully!"})
+                )
+                .catch(err => {
+                    res.status(500).send({
+                        message: err.message || "Some error occured while creating the user."
+                    });
+                })
+
         })
         .catch(err =>{
             res.status(500).send({ message: err || `Some error occured while sign up`});
-        })
-
-    // save the user
-    User.create(user)
-        .then(data => {
-            res.send(data)
-        })
-        .catch(err => {
-            res.status(500).send({
-                message: err.message || "Some error occured while creating the user."
-            });
         })
 };
 
