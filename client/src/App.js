@@ -1,8 +1,5 @@
-
 import './App.css';
-
 import AuthService from "./services/auth.service";
-
 import Sidebar from './components/SideBar/Sidebar';
 import {BrowserRouter, Routes, Route} from 'react-router-dom';
 import IstruzioniListsReparto from "./components/List_items/istruzioni_list_reparto_hooks"
