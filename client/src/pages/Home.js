@@ -27,6 +27,7 @@ const Home = () => {
 
   return (
     <div className='home-page'>
+
         <div className="search-bar-container">
             <h3> Testing: {content} </h3>
             <SearchBar setResults={setResults} />

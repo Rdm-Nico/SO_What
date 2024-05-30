@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import IstruzioneDataService from "../services/istruzione.service";
 import {useNavigate } from 'react-router-dom';
 import {SidebarData} from "./SideBar/SidebarData";
+import Sidebar from "./SideBar/Sidebar";
 
 
 export default function AddIstruzione(){

@@ -1,7 +1,6 @@
 import './App.css';
 import AuthService from "./services/auth.service";
-import Sidebar from './components/SideBar/Sidebar';
-import {BrowserRouter, Routes, Route} from 'react-router-dom';
+import { Routes, Route} from 'react-router-dom';
 import IstruzioniListsReparto from "./components/List_items/istruzioni_list_reparto_hooks"
 import Istruzione from "./components/istruzione_comp_hooks";
 import AddIstruzione from "./components/add_istruzione_hooks";
@@ -10,7 +9,9 @@ import Home from './pages/Home';
 import Login from "./components/auth_compontents/login";
 import Register from "./components/auth_compontents/register";
 
-import {useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
+import Sidebar from "./components/SideBar/Sidebar";
+
 
 
 
@@ -35,9 +36,8 @@ const App = () => {
 
   return (
       <div>
+        <Sidebar />
         <div className="container mt-3">
-        <BrowserRouter>
-          <Sidebar />
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/home" element={<Home />} />
@@ -52,8 +52,6 @@ const App = () => {
               </div>
             }/>
           </Routes>
-
-        </BrowserRouter>
         </div>
       </div>
   );
