@@ -7,8 +7,7 @@ const jwt = require("jsonwebtoken")
 const {TokenExpiredError} = jwt
 const config = require("../utils/config/config_auth")
 const db = require("../models")
-const User = db.utenti
-const Role = db.ruoli
+const User = db.user
 
 
 const catchError = (err, res) => {
@@ -40,20 +39,15 @@ isAdmin = (req, res, next) => {
     User.findByPk(req.userId)
         .then(user => {
             // search if the user is an admin
-            Role.findByPk(user.role_id)
-                .then(role => {
-                    if(role.name === "admin" ||role.name === "moderator" ){
+            user.getRoles().then(roles => {
+                for(let i = 0; i < roles.length; i++){
+                    if(roles[i].name === "admin") {
                         next();
+                        return
                     }
-                    else{
-                        return res.status(403).send({message: "Require Admin Role!"});
-                    }
-                })
-                .catch(err => {
-                    res.status(500).send({
-                        message: err.message || "Some error occured while accessing the mod."
-                    });
-                });
+            }
+                return res.status(403).send({message: "Require Admin Role!"});
+            })
         })
         .catch(err => {
             res.status(500).send({ message: err || `Some error occured while search if id=${req.userId} is a Admin`});
@@ -64,30 +58,46 @@ isModerator = (req, res, next) => {
     User.findByPk(req.userId)
         .then(user => {
             // search if the user is an admin
-
-            Role.findByPk(user.role_id)
-                .then(role => {
-                    if(role.name === "moderator"){
+            user.getRoles().then(roles => {
+                for(const role of roles){
+                    if(role.name === "moderator") {
                         next();
+                        return
                     }
-                    else{
-                        return res.status(403).send({message: "Require Moderator Role!"});
-                    }
-                })
-                .catch(err => {
-                    res.status(500).send({
-                        message: err.message || "Some error occured while accessing the mod."
-                    });
-                });
+                }
+                return res.status(403).send({message: "Require Moderator Role!"});
+            })
         })
         .catch(err => {
             res.status(500).send({ message: err || `Some error occured while search if id=${req.userId} is a Moderator`});
         })
 }
 
+isModeratorOrAdmin = (req, res, next) => {
+    User.findByPk(req.userId).then(user => {
+        user.getRoles().then(roles => {
+            for(const role of roles){
+                if(role.name ==="moderator" ){
+                    next();
+                    return;
+                }
+
+                if(role.name === "admin") {
+                    next();
+                    return;
+                }
+            }
+            res.status(403).send({
+                message: "Require Moderator or Admin Role!"
+            });
+        });
+    });
+};
+
 const authJwt = {
-    verifyToken,
-    isAdmin,
-    isModerator
+    verifyToken: verifyToken,
+    isAdmin: isAdmin,
+    isModerator: isModerator,
+    isModeratorOrAdmin: isModeratorOrAdmin
 };
 module.exports = authJwt

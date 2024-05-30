@@ -15,7 +15,7 @@ app.set('view engine', 'pug');
 
 // create connection with the db -> in develop we can use force for drop existing table and re-sync db
 const db = require("./models");
-const Role = db.ruoli
+const Role = db.role
 const roles = db.ROLES
 
 // code for develop time
@@ -31,8 +31,8 @@ db.sequelize.sync({force: true})
 // code for production time
 db.sequelize.sync()
     .then(() =>{
-      console.log("Synced db.");
-      // function for create the roles
+        console.log("Synced db.");
+        // function for create the roles
         initial()
 
     })
@@ -40,18 +40,25 @@ db.sequelize.sync()
       console.log("Failed to sync db: " + err.message);
     });
 
-// function for create the roles
-async function initial() {
+// function for create the roles}
+
+function initial() {
+    let i = 1
     for (const role_i of roles) {
-        const [role, created]= await Role.findOrCreate({
-            where: {name: role_i}
-        })
-        if(created){
-            console.log("added '%s' to roles collection",role_i)
-        }
-        console.log(" '%s' already added to roles collection",role_i)
+        Role.findOrCreate({ where: {
+                id: i,
+                name: role_i
+            }
+        }).then(role => {
+            if(!role){
+                console.log("role= " + role_i + " already exists")
+            }
+        });
+        i++;
     }
 }
+
+
 
 // create the middleware to stores the session data on the client within cookie
 app.use(

@@ -1,6 +1,6 @@
 const dbConfig = require("../utils/config/configdb");
 
-const {Sequelize, DataTypes} = require("sequelize");
+const {Sequelize} = require("sequelize");
 // Connecting to the db
 const sequelize = new Sequelize(dbConfig.DB, dbConfig.USER, dbConfig.PASSWORD,{
     host: dbConfig.HOST,
@@ -17,18 +17,28 @@ const db = {};
 
 db.Sequelize = Sequelize;
 db.sequelize = sequelize;
-db.DataTypes = DataTypes;
 
 db.istruzioni = require("./istruzioni.models")(sequelize, Sequelize);
-db.utenti = require("./utenti.models")(sequelize, Sequelize, DataTypes);
-db.ruoli = require("./ruoli.models")(sequelize, Sequelize);
+db.user = require("./user.models")(sequelize, Sequelize);
+db.role = require("./role.models")(sequelize, Sequelize);
 db.refreshToken = require("../models/refreshToken.models")(sequelize, Sequelize);
 
+// create association Users and Roles Many-to-Many
+db.role.belongsToMany(db.user, {
+    through: "user_roles", // this create a new table user_roles as connection between users and roles table
+    foreignKey: "roleId",
+    otherKey: "userId"
+});
+db.user.belongsToMany(db.role, {
+    through: "user_roles",
+    foreignKey: "userId",
+    otherKey: "roleId"
+})
 // create the association one-to-one with User model
-db.refreshToken.belongsTo(db.utenti, {
+db.refreshToken.belongsTo(db.user, {
     foreignKey: "userId", targetKey: "id"
 });
-db.utenti.hasOne(db.refreshToken, {
+db.user.hasOne(db.refreshToken, {
     foreignKey: "userId", targetKey: "id"
 });
 
