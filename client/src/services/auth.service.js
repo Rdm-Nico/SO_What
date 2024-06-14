@@ -7,7 +7,8 @@
     - getCurrentUser(): get stored user information (including JWT)
 * */
 
-import http from "../http-common"
+import http from "../common/http-common"
+import TokenService from "./token.service";
 
 
 const register = (username, password, roles) => {
@@ -26,14 +27,14 @@ const login = (username, password) => {
         .then((response) => {
             if(response.data.accessToken){
                 // the access token is present(login correct) we can store it
-                localStorage.setItem("user",JSON.stringify(response.data));
+                TokenService.setUser(response.data)
             }
             return response.data;
         })
 };
 
 const logout = () =>{
-    localStorage.removeItem("user");
+    TokenService.removeUser()
 };
 
 const getCurrentUser = () => {

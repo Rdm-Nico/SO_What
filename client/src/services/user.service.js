@@ -2,7 +2,7 @@
 * Service for accessing data
 * */
 
-import http from "../http-common"
+import http from "../common/http-common"
 import authHeader from "./auth-header";
 
 
@@ -11,21 +11,15 @@ const getPublicContent = () => {
 };
 
 const getUserBoard = () => {
-    return http.get("/test/user", {
-        headers: authHeader()
-    });
+    return http.get("/test/user");
 };
 
 const getModeratorBoard = () => {
-    return http.get("/test/mod", {
-        headers: authHeader()
-    });
+    return http.get("/test/mod");
 };
 
 const getAdminBoard = () => {
-    return http.get("/test/admin", {
-        headers: authHeader()
-    });
+    return http.get("/test/admin");
 };
 
 const UserService = {

@@ -1,4 +1,4 @@
-import http from "../http-common"
+import http from "../common/http-common"
 
 class IstruzioneDataService {
     // create a service that uses axios object above to send HTTP requests

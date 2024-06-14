@@ -10,7 +10,7 @@ const Home = () => {
 
   // for get the public content from the server-side
   useEffect(() => {
-      UserService.getPublicContent()
+      UserService.getAdminBoard()
           .then(
               (response) => {
                   setContent(response.data)
