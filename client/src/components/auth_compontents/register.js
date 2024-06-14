@@ -1,139 +1,124 @@
-/*
-*   This page is similar to Login Page.
-
-    For Form Validation, there are some more details:
-
-    username: required, between 3 and 20 characters
-    password: required, between 6 and 40 characters
-We’re gonna call AuthService.register() method and show response message (successful or error).
-*
-*
-* */
-
-import React, { useState, useRef } from "react";
-import Form from "react-validation/build/form";
-import Input from "react-validation/build/input";
-import CheckButton from "react-validation/build/button";
-
+import React, {useState} from 'react';
+import { Formik, Field, Form } from 'formik';
+import * as Yup from 'yup';
 import AuthService from "../../services/auth.service";
 
-const required = (value) => {
-    if(!value){
-        return (
-            <div className="alert alert-danger" role="alert">
-                This field is required !
-            </div>
-        );
-    }
-};
+const validationSchema = Yup.object().shape({
+    username: Yup.string().nonNullable('Invalid username').required('Username is required'),
+    password: Yup.string()
+        .min(6, 'Password must be at least 6 characters')
+        .required('Password is required'),
+    confirm_password: Yup.string()
+        .oneOf([Yup.ref('password')], 'Passwords must match')
+        .required('Confirm Password is required'),
+    roles: Yup.array().min(1,'Inserire almeno un ruolo')
+});
 
-const vusername = (value) => {
-    if (value.length < 3 || value.length > 20 ){
-        return (
-            <div className="alert alert-danger" role="alert">
-                The username must be between 3 and 20 characters.
-            </div>
-        );
-    }
-};
-
-const vpassword = (value) => {
-    if (value.length < 6 || value.length > 40) {
-        return (
-            <div className="alert alert-danger" role="alert">
-                The password must be between 6 and 40 characters.
-            </div>
-        );
-    }
-};
 
 const Register = () => {
-    const form = useRef();
-    const checkBtn = useRef();
 
-    const [username, setUsername] = useState("");
-    const [password, setPassword] = useState("");
     const [successful, setSuccessful] = useState(false);
     const [message, setMessage] = useState("");
 
-    const onChangeUsername = (e) => {
-        const username = e.target.value;
-        setUsername(username);
-    };
-
-    const onChangePassword = (e) => {
-        const password = e.target.value;
-        setPassword(password);
-    };
-
-    const handleRegister = (e) => {
-        e.preventDefault();
-
-        setMessage("");
-        setSuccessful(false);
-
-        form.current.validateAll();
-        if (checkBtn.current.context._errors.length === 0) {
-            AuthService.register(username, password).then(
-                (response) => {
-                    setMessage(response.data.message);
-                    setSuccessful(true);
-                },
-                (error) => {
-                    const resMessage =
-                        (error.response &&
-                            error.response.data &&
-                            error.response.data.message) ||
-                        error.message ||
-                        error.toString();
-
-                    setMessage(resMessage);
-                    setSuccessful(false);
-                }
-            );
-        }
-    }
 
     return (
-        <div className="col-md-12">
-            <div className="card card-container">
-                <img
-                    src="//ssl.gstatic.com/accounts/ui/avatar_2x.png"
-                    alt="profile-img"
-                    className="profile-img-card"
-                />
+        <div>
+            <h1>Sign Up</h1>
+            <Formik
+                validationSchema={validationSchema}
+                initialValues={{
+                    username: '',
+                    password: '',
+                    confirm_password: '',
+                    roles: []
+                }}
+                onSubmit={async (values) => {
 
-                <Form onSubmit={handleRegister} ref={form}>
+                    AuthService.register(values.username, values.password, values.roles).then(
+                        (response) => {
+                            setMessage(response.data.message);
+                            setSuccessful(true);
+                        },
+                        (error) => {
+                            const resMessage =
+                                (error.response &&
+                                    error.response.data &&
+                                    error.response.data.message) ||
+                                error.message ||
+                                error.toString();
+
+                            setMessage(resMessage);
+                            setSuccessful(false);
+                        }
+                    );
+                }}
+            >{ ({
+                   values,
+                   errors,
+                   touched,
+                   handleChange,
+                   handleBlur,
+                   handleSubmit,
+               }) => (
+                <Form noValidate onSubmit={handleSubmit}>
                     {!successful && (
                         <div>
-                            <div className="form-login-group">
-                                <label htmlFor="username">Username</label>
-                                <Input
-                                    type="text"
-                                    className="form-control"
-                                    name="username"
-                                    value={username}
-                                    onChange={onChangeUsername}
-                                    validations={[required, vusername]}
-                                />
-                            </div>
+                            <label htmlFor="Username">Username</label>
+                            <Field id="username" name="username" placeholder="utente"/>
+                            {/* If validation is not passed show errors */}
+                            <p className="error">
+                                {errors.username && touched.username && errors.username}
+                            </p>
 
+                            <label htmlFor="password">Password</label>
+                            <Field
+                                type="password"
+                                name="password"
+                                onChange={handleChange}
+                                onBlur={handleBlur}
+                                value={values.password}
 
-                            <div className="form-login-group">
-                                <label htmlFor="password">Password</label>
-                                <Input
-                                    type="password"
-                                    className="form-control"
-                                    name="password"
-                                    value={password}
-                                    onChange={onChangePassword}
-                                    validations={[required, vpassword]}
-                                />
+                                placeholder="Enter password"
+                                className="form-control"
+                            />
+                            {/* If validation is not passed show errors */}
+                            <p className="error">
+                                {errors.password && touched.password && errors.password}
+                            </p>
+                            <label htmlFor="password">Confirm Password</label>
+                            <Field
+                                type="password"
+                                name="confirm_password"
+                                onChange={handleChange}
+                                onBlur={handleBlur}
+                                value={values.confirm_password}
+                                placeholder="Enter password"
+                                className="form-control"
+                            />
+                            {/* If validation is not passed show errors */}
+                            <p className="error">
+                                {errors.confirm_password && touched.confirm_password && errors.confirm_password}
+                            </p>
+                            <div id="checkbox-group">Roles</div>
+                            <div role="group" aria-labelledby="checkbox-group">
+                                <label>
+                                    <Field type="checkbox" name="roles" value="User"/>
+                                    User
+                                </label>
+                                <label>
+                                    <Field type="checkbox" name="roles" value="Moderator"/>
+                                    Moderator
+                                </label>
+                                <label>
+                                    <Field type="checkbox" name="roles" value="Admin"/>
+                                    Admin
+                                </label>
                             </div>
-
-                            <div className="form-login-group">
-                                <button className="btn btn-primary btn-block">Sign Up</button>
-                            </div>
+                            {/* If validation is not passed show errors */}
+                            <p className="error">
+                                {errors.roles && touched.roles && errors.roles}
+                            </p>
+                            <button type="submit">Submit</button>
                         </div>
                     )}
 
@@ -147,11 +132,12 @@ const Register = () => {
                             </div>
                         </div>
                     )}
-                    <CheckButton style={{display: "none"}} ref={checkBtn}/>
                 </Form>
-            </div>
+            )}
+            </Formik>
         </div>
     )
 }
 
-export default Register;
+export default Register
+

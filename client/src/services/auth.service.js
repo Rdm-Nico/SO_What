@@ -10,10 +10,11 @@
 import http from "../http-common"
 
 
-const register = (username, password) => {
+const register = (username, password, roles) => {
     return http.post("/auth/signup", {
         username,
-        password
+        password,
+        roles
     });
 };
 

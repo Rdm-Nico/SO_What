@@ -6,8 +6,9 @@ import Istruzione from "./components/istruzione_comp_hooks";
 import AddIstruzione from "./components/add_istruzione_hooks";
 import Home from './pages/Home';
 
-import Login2 from "./components/auth_compontents/loginv2";
-import Basic from "./components/auth_compontents/registerv2";
+import Login from "./components/auth_compontents/login";
+import Register from "./components/auth_compontents/register";
+import Profile from "./components/auth_compontents/profile"
 
 import React, {useEffect, useState} from "react";
 import Sidebar from "./components/SideBar/Sidebar";
@@ -44,8 +45,9 @@ const App = () => {
             <Route path="/reparti/:reparto" exact Component={IstruzioniListsReparto} />
             <Route path="/istruzione/:id" exact Component={Istruzione} />
             <Route path="/istruzione/upload" exact Component={AddIstruzione} />
-            <Route path="/login" exact Component={Login2} />
-            <Route path="/register" exact Component={Basic} />
+            <Route path="/login" exact Component={Login} />
+            <Route path="/register" exact Component={Register} />
+            <Route path="/profile" exact Component={Profile} />
             <Route path="*" element={
               <div className='home'>
                 <h2> 404 Page not found</h2>
