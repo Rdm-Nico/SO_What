@@ -20,7 +20,7 @@ module.exports = app => {
     router.put("/:id", istruzioni.update);
 
     // Delete an Instruction by id
-    router.delete("/", istruzioni.delete);
+    router.delete("/:id", istruzioni.delete);
 
     // Delete all Instructions
     router.delete("/", istruzioni.deleteAll);

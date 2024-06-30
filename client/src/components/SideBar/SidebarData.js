@@ -3,6 +3,8 @@ import * as FaIcons from 'react-icons/fa'
 import * as AiIcons from 'react-icons/ai'
 import * as IoIcons from 'react-icons/io'
 import * as RiIcons from 'react-icons/ri'
+import * as BiIcons from 'react-icons/bi'
+import * as FiIcons from 'react-icons/fi'
 
 export const SidebarData = [
 
@@ -68,6 +70,11 @@ export const SidebarData = [
     {
         title:'Upload Istruzione',
         path:'/istruzione/upload',
-        icon: <AiIcons.AiFillHome />,
+        icon: <FiIcons.FiFilePlus />,
+    },
+    {
+        title:'Login',
+        path:'/login',
+        icon: <BiIcons.BiLogInCircle />,
     }
 ]

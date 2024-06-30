@@ -1,11 +1,27 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import IstruzioneDataService from "../services/istruzione.service";
 import {useNavigate } from 'react-router-dom';
 import {SidebarData} from "./SideBar/SidebarData";
 import Sidebar from "./SideBar/Sidebar";
+import AuthService from "../services/auth.service";
 
 
 export default function AddIstruzione(){
+    const [showModeratorBoard, setShowModeratorBoard] = useState(false);
+    const [showAdminBoard, setShowAdminBoard] = useState(false);
+    const [currentUser, setCurrentUser] = useState(undefined);
+
+    useEffect(() => {
+        // get the user and find if can see this page
+        const user = AuthService.getCurrentUser()
+
+        if (user){
+            setCurrentUser(user)
+            setShowModeratorBoard(user.roles.includes('ROLE_MODERATOR'))
+            setShowAdminBoard(user.roles.includes('ROLE_ADMIN'))
+        }
+    }, []);
+
     const [istruzione, setIstruzione] = useState({
         id: null,
         title: "",
@@ -23,6 +39,9 @@ export default function AddIstruzione(){
             ...istruzione,
             title: e.target.value
         })
+        console.log(showModeratorBoard)
+        console.log(showAdminBoard)
+        console.log(currentUser)
     }
     function handleRepartoChange(e){
         console.log(e.target.value)
@@ -83,61 +102,73 @@ export default function AddIstruzione(){
         })
     }
     return (
-        <div className="submit-form">
-            {istruzione.submitted ? (
-                <div>
-                    <h4>File inviati correttamente !</h4>
+        <div> { showAdminBoard || showModeratorBoard ? (
+            <div className="submit-form">
+                {istruzione.submitted ? (
+                    <div>
+                        <h4>File inviati correttamente !</h4>
 
-                    <button className="btn btn-success" onClick={newIstruizone}>
-                        Add
-                    </button>
-                    <button className="btn btn-success" onClick={() => {navigate('/')}}>
-                        Home
-                    </button>
-                </div>
-            ) : (
-                <div>
-                    <div className="form-group">
-                        <label htmlFor="title">Titolo</label>
-                        <input
-                            type="text"
-                            className="form-control"
-                            id="title"
-                            required
-                            value={istruzione.title}
-                            onChange={handleTitleChange}
-                            name="title"
-                        />
+                        <button className="btn btn-success" onClick={newIstruizone}>
+                            Add
+                        </button>
+                        <button className="btn btn-success" onClick={() => {navigate('/')}}>
+                            Home
+                        </button>
                     </div>
+                ) : (
+                    <div>
+                        <div className="form-group">
+                            <label htmlFor="title">Titolo</label>
+                            <input
+                                type="text"
+                                className="form-control"
+                                id="title"
+                                required
+                                value={istruzione.title}
+                                onChange={handleTitleChange}
+                                name="title"
+                            />
+                        </div>
 
-                    <div className="form-group">
-                        <label htmlFor="reparto">Reparto:</label>
-                        <select  name="reparti_list" className="form-control" id="reparto" onChange={handleRepartoChange}>
-                            {
-                                 reparti.map((reparto,index) => (
-                                         <option key={index} value={reparto.title}> {reparto.title}</option>
+                        <div className="form-group">
+                            <label htmlFor="reparto">Reparto:</label>
+                            <select  name="reparti_list" className="form-control" id="reparto" onChange={handleRepartoChange}>
+                                {
+                                     reparti.map((reparto,index) => (
+                                             <option key={index} value={reparto.title}> {reparto.title}</option>
+                                         )
                                      )
-                                 )
-                            }
-                        </select>
+                                }
+                            </select>
+
+                        </div>
+                        <div className="form-group">
+                            <input
+                                type="file"
+                                className="form-control"
+                                id="file"
+                                required
+                                onChange={handleFileChange}
+                            />
+                        </div>
+
+                        <button onClick={saveIstruzione} className="btn btn-success">
+                            Invia
+                        </button>
 
                     </div>
-                    <div className="form-group">
-                        <input
-                            type="file"
-                            className="form-control"
-                            id="file"
-                            required
-                            onChange={handleFileChange}
-                        />
-                    </div>
-
-                    <button onClick={saveIstruzione} className="btn btn-success">
-                        Invia
-                    </button>
-
-                </div>
-            )}
+                    )}
+            </div>): (
+            <div>
+                <h1>Errore</h1>
+                Non hai l'autorizzazione per accedere a questa pagina. Si prega prima di fare il Login
+                <button className="btn btn-success" onClick={() => {
+                    navigate('/')
+                }}>
+                    Home
+                </button>
+            </div>
+        )}
         </div>
     );
 }
