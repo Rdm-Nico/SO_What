@@ -1,12 +1,18 @@
 import React from 'react'
-import * as FaIcons from 'react-icons/fa'
 import * as AiIcons from 'react-icons/ai'
 import * as IoIcons from 'react-icons/io'
 import * as RiIcons from 'react-icons/ri'
 import * as BiIcons from 'react-icons/bi'
 import * as FiIcons from 'react-icons/fi'
+import { IconContext } from "react-icons";
+import styled from "styled-components";
+
+
+
+
 
 export const SidebarData = [
+
 
     {
         title:'Reparti',

@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useRef, useState} from 'react';
 import styled from 'styled-components';
 import {Link} from 'react-router-dom';
 import * as FaIcons from 'react-icons/fa';
@@ -32,10 +32,16 @@ const SidebarNav = styled.nav`
   display: flex;
   justify-content: center;
   position: fixed;
+  overflow: auto;
+  direction: rtl;
   top: 0;
   left: ${({ sidebar }) => (sidebar ? '0' : '-100%')};
   transition: 350ms;
   z-index: 10;
+`;
+
+const SidebarContent = styled.div`
+  direction: ltr;
 `;
 
 const SidebarWrap = styled.div`
@@ -45,6 +51,7 @@ const SidebarWrap = styled.div`
 const Sidebar = () => {
 
   const[sidebar, setSidebar] = useState(false)
+  const scrollbar = useRef(null)
 
   const showSidebar = () => setSidebar(!sidebar)
 
@@ -57,16 +64,18 @@ const Sidebar = () => {
       </NavIcon>
     </Nav>
     <SidebarNav sidebar={sidebar}>
-      <SidebarWrap>
-      <NavIcon to="#">
-        <AiIcons.AiOutlineClose onClick={showSidebar}
+      <SidebarContent>
+        <SidebarWrap>
+            <NavIcon to="#">
+              <AiIcons.AiOutlineClose onClick={showSidebar}
 
-        />
-      </NavIcon>
-      {SidebarData.map((item, index) =>{
-          return <SubMenu item={item} key={index}  />;
-      })}
-      </SidebarWrap>
+              />
+            </NavIcon>
+            {SidebarData.map((item, index) =>{
+                return <SubMenu item={item} key={index}  />;
+            })}
+        </SidebarWrap>
+      </SidebarContent>
     </SidebarNav>
     </IconContext.Provider>
     </>

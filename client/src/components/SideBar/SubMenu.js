@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import {Link} from 'react-router-dom';
 import styled from 'styled-components';
 import showSidebar from './Sidebar'
+import {IconContext} from "react-icons";
 
 const SidebarLink = styled(Link)`
     display: flex;
@@ -12,7 +13,7 @@ const SidebarLink = styled(Link)`
     list-style: none;
     height: 60px;
     text-decoration: none;
-    font_size: 18px;
+    font-size: 18px;
 
 
     &:hover{
@@ -25,7 +26,7 @@ const SidebarLink = styled(Link)`
 
 
 const SidebarLabel = styled.span`
-    margin-left: 16px;
+    margin-left: 5px;
 `;
 
 const DropdownLink = styled(Link)`
@@ -41,12 +42,26 @@ const DropdownLink = styled(Link)`
     &:hover{
         background: #405d27;
         cursor: pointer;
+        font-style: oblique;
+        font-weight: bold;
+        color: #15171c;
     }
 `;
+
+const IconWrapper = styled(IconContext.Provider)`
+    color: #f5f5f5;
+    display: flex;
+    transition: color 0.3s ease;
+    ${DropdownLink}:hover & {
+        color: #15171c;
+    }
+`;
+
 
 const SubMenu = ({item}) => {
     const [subnav, setSubnav] = useState(false)
     const showSubNav = () => setSubnav(!subnav)
+    const [isHovered, setIsHovered] = useState(false);
 
     return (
         <>
@@ -62,11 +77,13 @@ const SubMenu = ({item}) => {
             {item.subNav && subnav ? item.iconOpened : item.subNav ? item.iconClosed : null}
         </div>
         </SidebarLink>
-        {subnav && item.subNav.map((item, index) =>{
+        {subnav && item.subNav.map((subItem, index) =>{
             return (
-                <DropdownLink to={item.path} key={index} onClick={window.location.reload}>
-                    {item.icon}
-                    <SidebarLabel>{item.title}</SidebarLabel>
+                <DropdownLink to={subItem.path} key={index} onClick={window.location.reload} onMouseEnter={() => setIsHovered(index)} onMouseLeave={() => setIsHovered(null) }>
+                    <IconWrapper value={{color: isHovered === index ? '#15171c' : '#f5f5f5'}}>
+                        {subItem.icon}
+                    </IconWrapper>
+                    <SidebarLabel>{subItem.title}</SidebarLabel>
                 </DropdownLink>
             )
         })}
