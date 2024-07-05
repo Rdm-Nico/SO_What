@@ -3,6 +3,7 @@ import IstruzioneDataService from "../services/istruzione.service";
 import { useParams,useNavigate } from 'react-router-dom';
 import AuthService from "../services/auth.service";
 import {SidebarData} from "./SideBar/SidebarData";
+import "./Istruzione.css"
 
 export default function Istruzione() {
 
@@ -93,10 +94,10 @@ export default function Istruzione() {
             <div  className="submit-form">
                 {istruzione ? (
                     <div className="edit-form">
-                        <h4>Istruzione</h4>
+                        <h2>Istruzione n. {istruzione.id}</h2>
                         <form>
                             <div className="form-group">
-                                <label htmlFor="title">Titolo</label>
+                                <label htmlFor="title">Titolo:</label>
                                 <input
                                     type="text"
                                     className="form-control"
@@ -104,7 +105,7 @@ export default function Istruzione() {
                                     value={istruzione.title}/>
                             </div>
                             <div className="form-group">
-                                <label htmlFor="reparto">Reparto</label>
+                                <label htmlFor="reparto">Reparto:</label>
                                 <input
                                     type="text"
                                     className="form-control"
@@ -115,8 +116,7 @@ export default function Istruzione() {
 
                             <iframe src={istruzione.path}
                                     title={istruzione.title}
-                                    width={2000}
-                                    height={900}
+                                    className="Iframe_doc"
                             ></iframe>
 
 
@@ -125,17 +125,17 @@ export default function Istruzione() {
                 ) : (
                     <div>
                         <h1> Errore nella pagina </h1>
-                    <button onClick={() => {navigate('/')}}>HOME</button>
+                    <button className="home_button" onClick={() => {navigate('/')}}>HOME</button>
                     </div>
                 )}
-                <button onClick={() => {navigate('/')}}>HOME
+                <button className="home_button" onClick={() => {navigate('/')}}>HOME
                 </button>
-                <button onClick={() => {navigate(-1)}}>Back</button>
+                <button className="prev_button" onClick={() => {navigate(-1)}}>Back</button>
             </div>): (
             <div className="submit-form">
                 {istruzione ? (
                     <div className="edit-form">
-                        <h4>Istruzione</h4>
+                        <h2>Istruzione</h2>
                         <form>
                             <div className="form-group">
                                 <label htmlFor="title">Titolo:</label>
@@ -163,8 +163,7 @@ export default function Istruzione() {
 
                             <iframe src={istruzione.path}
                                     title={istruzione.title}
-                                    width={2000}
-                                    height={900}
+                                    className="Iframe_doc"
                             ></iframe>
 
                         </form>
@@ -172,7 +171,7 @@ export default function Istruzione() {
                 ) : (
                     <div>
                         <h1> Errore nella pagina </h1>
-                        <button onClick={() => {
+                        <button className="home_button" onClick={() => {
                             navigate('/')
                         }}>HOME
                         </button>
@@ -189,11 +188,11 @@ export default function Istruzione() {
                     Aggiorna
                 </button>
                 <p>{message}</p>
-                <button onClick={() => {
+                <button className="home_button" onClick={() => {
                     navigate('/')
                 }}>HOME
                 </button>
-                <button onClick={() => {
+                <button className="prev_button" onClick={() => {
                     navigate(-1)
                 }}>Back
                 </button>
