@@ -4,7 +4,7 @@ import { useParams,useNavigate } from 'react-router-dom';
 import AuthService from "../services/auth.service";
 import {SidebarData} from "./SideBar/SidebarData";
 import "./Istruzione.css"
-import {DialogWindowChoose} from "./DialogWindows_hooks";
+import {DialogWindow, DialogWindowChoose} from "./DialogWindows_hooks";
 
 export default function Istruzione() {
 
@@ -198,6 +198,7 @@ export default function Istruzione() {
                     onConfirm={deleteIstruzione}
                     onCancel={handleCancelDelete}
                 />
+
                 <button
                     type="submit"
                     className="update_button"

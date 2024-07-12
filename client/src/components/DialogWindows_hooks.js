@@ -1,7 +1,6 @@
-"use client";
 import React from 'react'
 import { Button, Modal } from "flowbite-react";
-
+import './Istruzione.css'
 
 
 
@@ -9,7 +8,7 @@ import { Button, Modal } from "flowbite-react";
 export function DialogWindowChoose({ show, handleClose, message, onConfirm, onCancel }) {
     return (
         <>
-            <Modal show={show} onClose={handleClose}>
+            <Modal show={show} onClose={handleClose} className="ciao">
                 <h1>Aspetta un attimo!</h1>
                 {message}
                 <button onClick={onCancel}> Annulla</button>
@@ -21,17 +20,24 @@ export function DialogWindowChoose({ show, handleClose, message, onConfirm, onCa
 
 /*export  function DialogWindow({ show, handleClose, message }) {
     return (
-        <Modal show={show} onHide={handleClose}>
-            <Modal.Header closeButton>
-                <Modal.Title>Avviso</Modal.Title>
-            </Modal.Header>
-            <Modal.Body>{message}</Modal.Body>
-            <Modal.Footer>
-                <Button variant="secondary" onClick={handleClose}>
-                    Chiudi
-                </Button>
-            </Modal.Footer>
-        </Modal>
+        <ReactDialogBox
+            closeBox={show}
+            modalWidth='60%'
+            headerBackgroundColor='red'
+            headerTextColor='white'
+            headerHeight='65'
+            closeButtonColor='white'
+            bodyBackgroundColor='white'
+            bodyTextColor='black'
+            bodyHeight='200px'
+            headerText='Title'
+        >
+            <div>
+                <h1>Dialog Content</h1>
+                {message}
+                <button onClick={handleClose}> Chiudi</button>
+            </div>
+        </ReactDialogBox>
     );
 }*/
 
