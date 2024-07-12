@@ -4,6 +4,7 @@ import { useParams,useNavigate } from 'react-router-dom';
 import AuthService from "../services/auth.service";
 import {SidebarData} from "./SideBar/SidebarData";
 import "./Istruzione.css"
+import {DialogWindowChoose} from "./DialogWindows_hooks";
 
 export default function Istruzione() {
 
@@ -21,6 +22,13 @@ export default function Istruzione() {
     let navigate = useNavigate();
     const { id } = useParams()
     const reparti = SidebarData[0].subNav
+    const [showDialog, setShowDialog] = useState(false)
+    const [istruzioneToDelete, setIstruzioneToDelete] = useState(null)
+
+
+    const handleDeleteClick = file => {
+        setIstruzione()
+    }
 
     const getIstruzione = id => {
 
@@ -79,6 +87,8 @@ export default function Istruzione() {
             })
     }
 
+    handleCancelDelete
+
     const deleteIstruzione = () => {
         IstruzioneDataService.delete(istruzione.id)
             .then(response => {
@@ -135,9 +145,9 @@ export default function Istruzione() {
             <div className="submit-form">
                 {istruzione ? (
                     <div className="edit-form">
-                        <h2>Istruzione</h2>
+                        <h2>Istruzione n. {istruzione.id}</h2>
                         <form>
-                            <div className="form-group">
+                        <div className="form-group">
                                 <label htmlFor="title">Titolo:</label>
                                 <input
                                     type="text"
@@ -150,7 +160,7 @@ export default function Istruzione() {
                             </div>
                             <div className="form-group">
                                 <label htmlFor="reparto">Reparto:</label>
-                                <select name="reparto" className="form-control" id="reparto" value={istruzione.reparto}
+                                <select name="reparto" className="select-control" id="reparto" value={istruzione.reparto}
                                         onChange={handleInputChange}>
                                     {
                                         reparti.map((reparto, index) => (
@@ -177,15 +187,22 @@ export default function Istruzione() {
                         </button>
                     </div>
                 )}
-                <button className="badge badge-danger mr-2" onClick={deleteIstruzione}>
-                    Elimina
+                <button className="delete_button" onClick={deleteIstruzione}>
+                    Elimina Istruzione
                 </button>
+                <DialogWindowChoose
+                    show={showDialog}
+                    handleClose={handleCancelDelete}
+                    message={`Stai per eliminare l'istruzione ${istruzione.title}. L'operazione é irreversibile.`}
+                    onConfirm={deleteIstruzione}
+                    onCancel={handleCancelDelete}
+                />
                 <button
                     type="submit"
-                    className="badge badge-success"
+                    className="update_button"
                     onClick={updateIstruzione}
                 >
-                    Aggiorna
+                    Aggiorna Istruzione
                 </button>
                 <p>{message}</p>
                 <button className="home_button" onClick={() => {

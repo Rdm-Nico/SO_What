@@ -1,10 +1,9 @@
 import React, {useEffect, useState} from 'react';
 import IstruzioneDataService from "../services/istruzione.service";
-import {useNavigate } from 'react-router-dom';
+import {Link, useNavigate} from 'react-router-dom';
 import {SidebarData} from "./SideBar/SidebarData";
-import Sidebar from "./SideBar/Sidebar";
 import AuthService from "../services/auth.service";
-
+import "./Istruzione.css"
 
 export default function AddIstruzione(){
     const [showModeratorBoard, setShowModeratorBoard] = useState(false);
@@ -160,13 +159,10 @@ export default function AddIstruzione(){
                     )}
             </div>): (
             <div>
-                <h1>Errore</h1>
-                Non hai l'autorizzazione per accedere a questa pagina. Si prega prima di fare il Login
-                <button className="btn btn-success" onClick={() => {
-                    navigate('/')
-                }}>
-                    Home
-                </button>
+                <h1 className="h1_error">Errore!</h1>
+                <div>
+                    Non hai l'autorizzazione per accedere a questa pagina. <Link className='link_home_err' to={'/'}> Clicca qui per tornare alla Home </Link>
+                </div>
             </div>
         )}
         </div>
