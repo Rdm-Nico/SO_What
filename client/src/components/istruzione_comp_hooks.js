@@ -15,6 +15,7 @@ export default function Istruzione() {
         reparto:""
     }
     const [istruzione,setIstruzione] = useState(initialIstruzioneState);
+    const [showDialog, setShowDialog] = useState(false);
     const [showModeratorBoard, setShowModeratorBoard] = useState(false);
     const [showAdminBoard, setShowAdminBoard] = useState(false);
     const [currentUser, setCurrentUser] = useState(undefined);
@@ -22,12 +23,10 @@ export default function Istruzione() {
     let navigate = useNavigate();
     const { id } = useParams()
     const reparti = SidebarData[0].subNav
-    const [showDialog, setShowDialog] = useState(false)
-    const [istruzioneToDelete, setIstruzioneToDelete] = useState(null)
 
 
     const handleDeleteClick = file => {
-        setIstruzione()
+        setShowDialog(true)
     }
 
     const getIstruzione = id => {
@@ -87,7 +86,9 @@ export default function Istruzione() {
             })
     }
 
-    handleCancelDelete
+    const handleCancelDelete = () => {
+        setShowDialog(false)
+    }
 
     const deleteIstruzione = () => {
         IstruzioneDataService.delete(istruzione.id)
@@ -187,7 +188,7 @@ export default function Istruzione() {
                         </button>
                     </div>
                 )}
-                <button className="delete_button" onClick={deleteIstruzione}>
+                <button className="delete_button" onClick={handleDeleteClick}>
                     Elimina Istruzione
                 </button>
                 <DialogWindowChoose
