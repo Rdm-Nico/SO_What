@@ -1,4 +1,4 @@
-.Model_window {
+.modal_window {
     background-color: #ddddddCC;
 
 }
@@ -68,6 +68,12 @@ h2 {
     font-size: 25px;
     background-color: transparent;
     color: #8b0000;
+}
+.button_dialog_on_submit{
+    font-weight: bolder;
+    font-size: 25px;
+    background-color: transparent;
+    color: #405d27;
 }
 
 .home_button {

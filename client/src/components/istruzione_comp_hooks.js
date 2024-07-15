@@ -1,10 +1,10 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import IstruzioneDataService from "../services/istruzione.service";
 import { useParams,useNavigate } from 'react-router-dom';
 import AuthService from "../services/auth.service";
 import {SidebarData} from "./SideBar/SidebarData";
 import "./Istruzione.css"
-import {DialogWindow, DialogWindowChoose} from "./DialogWindows_hooks";
+import {DialogWindow, DialogWindowDelete, DialogWindowUpdate} from "./DialogWindows_hooks";
 
 export default function Istruzione() {
 
@@ -12,29 +12,48 @@ export default function Istruzione() {
         id: null,
         title: "" ,
         path: "",
-        reparto:""
+        reparto:"",
+        file:null,
+        submitted: false
     }
     const [istruzione,setIstruzione] = useState(initialIstruzioneState);
-    const [showDialog, setShowDialog] = useState(false);
+    const [showDialogDelete, setShowDialogDelete] = useState(false);
+    const [showDialogUpdate, setShowDialogUpdate] = useState(false);
     const [showModeratorBoard, setShowModeratorBoard] = useState(false);
     const [showAdminBoard, setShowAdminBoard] = useState(false);
     const [currentUser, setCurrentUser] = useState(undefined);
-    const [message, setMessage] = useState("");
+    const SyncWithMe = useRef(false)
     let navigate = useNavigate();
     const { id } = useParams()
     const reparti = SidebarData[0].subNav
 
 
-    const handleDeleteClick = file => {
-        setShowDialog(true)
+    const handleDeleteClick = () => {
+        setShowDialogDelete(true)
+    }
+    const handleCancelDelete = () => {
+        setShowDialogDelete(false)
+    }
+
+    const handleUpdateClick = () => {
+        setShowDialogUpdate(true)
+    }
+    const handleCancelUpdate = () => {
+        setShowDialogUpdate(false)
+        // re renderizziamo
+        SyncWithMe.current = false
     }
 
     useEffect(() => {
 
+         if (SyncWithMe.current) {
+             // non facciamo nulla
+             return;
+         }
+
         // get the istruzione by id
         IstruzioneDataService.get(id)
             .then(response => {
-                console.log(response)
                 /*ricordati che si posso cambiare le variabili dentro allo stato in questo modo:
                 * ...istruzione,
                 * K:V,
@@ -50,7 +69,9 @@ export default function Istruzione() {
                     id: id,
                     title: response.data.title,
                     path: response.data.path,
-                    reparto: response.data.reparto
+                    reparto: response.data.reparto,
+                    file:null,
+                    submitted: false
                 })
             })
             .catch(e => {
@@ -65,29 +86,42 @@ export default function Istruzione() {
             setShowModeratorBoard(user.roles.includes('ROLE_MODERATOR'))
             setShowAdminBoard(user.roles.includes('ROLE_ADMIN'))
         }
+        SyncWithMe.current = true
     }, [id, istruzione]);
 
-    const handleInputChange = event => {
-        const {name, value} = event.target;
-        setIstruzione({
-            ...istruzione,
-            [name]: value
-        })
+    const handleInputChange = e => {
+        if (!e.target.files){
+            const {name, value} = e.target;
+            setIstruzione({
+                ...istruzione,
+                [name]: value
+            })
+        }
+        else{
+            // cambiamo il file
+            const {name, value} = e.target;
+            const file_container = e.target.files[0]
+            setIstruzione({
+                ...istruzione,
+                file:file_container
+            })
+        }
+
+        console.log(istruzione)
     }
     const updateIstruzione = () => {
         IstruzioneDataService.update(istruzione.id,istruzione)
             .then(response => {
-                console.log(response.data)
-                setMessage('Istruzione Aggiornata')
+                console.log('this is the update:',response.data)
             })
             .catch(e => {
                 console.log(e)
             })
+        // re renderizziamo
+        SyncWithMe.current = false
     }
 
-    const handleCancelDelete = () => {
-        setShowDialog(false)
-    }
+
 
     const deleteIstruzione = () => {
         IstruzioneDataService.delete(istruzione.id)
@@ -190,8 +224,8 @@ export default function Istruzione() {
                 <button className="delete_button" onClick={handleDeleteClick}>
                     Elimina Istruzione
                 </button>
-                <DialogWindowChoose
-                    show={showDialog}
+                <DialogWindowDelete
+                    show={showDialogDelete}
                     handleClose={handleCancelDelete}
                     message={`Stai per eliminare l'istruzione ${istruzione.title}. L'operazione é irreversibile.`}
                     onConfirm={deleteIstruzione}
@@ -201,11 +235,18 @@ export default function Istruzione() {
                 <button
                     type="submit"
                     className="update_button"
-                    onClick={updateIstruzione}
+                    onClick={handleUpdateClick}
                 >
                     Aggiorna Istruzione
                 </button>
-                <p>{message}</p>
+                <DialogWindowUpdate
+                    show={showDialogUpdate}
+                    handleClose={handleCancelUpdate}
+                    onConfirm={updateIstruzione}
+                    onCancel={handleCancelUpdate}
+                    handleInputChange={handleInputChange}
+                    istruzione={istruzione}
+                />
                 <button className="home_button" onClick={() => {
                     navigate('/')
                 }}>HOME

@@ -38,9 +38,6 @@ export default function AddIstruzione(){
             ...istruzione,
             title: e.target.value
         })
-        console.log(showModeratorBoard)
-        console.log(showAdminBoard)
-        console.log(currentUser)
     }
     function handleRepartoChange(e){
         console.log(e.target.value)
@@ -51,6 +48,7 @@ export default function AddIstruzione(){
     }
     function handleFileChange(e){
         const new_title = (name) => {
+            if (istruzione.title === ""){
             // facciamo il parsing per tirare via il .doc .pdf ecc...
             const original_name = name
             const startIndex = original_name.indexOf('.')
@@ -58,6 +56,8 @@ export default function AddIstruzione(){
             new_name = original_name.slice(0, startIndex);
 
             return new_name
+            }
+            return istruzione.title
         }
 
         setIstruzione({
@@ -105,10 +105,10 @@ export default function AddIstruzione(){
             <div className="submit-form">
                 {istruzione.submitted ? (
                     <div>
-                        <h4>File inviati correttamente !</h4>
+                        <h4>Istruzione inviata correttamente !</h4>
 
                         <button className="btn btn-success" onClick={newIstruizone}>
-                            Add
+                            Nuova Istruzione
                         </button>
                         <button className="btn btn-success" onClick={() => {navigate('/')}}>
                             Home
