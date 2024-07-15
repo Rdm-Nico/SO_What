@@ -1,5 +1,6 @@
-.ciao {
-    background-color: #dddddd;
+.Model_window {
+    background-color: #ddddddCC;
+
 }
 .submit-form {
     font-weight: bold;
@@ -23,6 +24,13 @@ h2 {
     align-items: center;
     font-size: xx-large;
 }
+.text_dialog_window{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    font-size: x-large;
+}
 
 .Iframe_doc {
     width: 100%;
@@ -42,6 +50,24 @@ h2 {
     font-weight: bolder;
     text-decoration: none;
     color: #15171c;
+}
+
+
+.dialog_buttons{
+    display: flex;
+    justify-content: center;
+    gap: 50px; /* Spazio tra i bottoni */
+}
+.button_dialog_on_cancel{
+    font-weight: bolder;
+    font-size: 25px;
+    background-color: transparent;
+}
+.button_dialog_on_delete{
+    font-weight: bolder;
+    font-size: 25px;
+    background-color: transparent;
+    color: #8b0000;
 }
 
 .home_button {

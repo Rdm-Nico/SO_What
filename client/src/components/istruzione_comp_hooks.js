@@ -29,8 +29,9 @@ export default function Istruzione() {
         setShowDialog(true)
     }
 
-    const getIstruzione = id => {
+    useEffect(() => {
 
+        // get the istruzione by id
         IstruzioneDataService.get(id)
             .then(response => {
                 console.log(response)
@@ -55,9 +56,7 @@ export default function Istruzione() {
             .catch(e => {
                 console.log(e);
             });
-    }
-    useEffect(() => {
-        getIstruzione(id)
+
         // look if the user is an admin or mod
         const user = AuthService.getCurrentUser()
 
@@ -66,7 +65,7 @@ export default function Istruzione() {
             setShowModeratorBoard(user.roles.includes('ROLE_MODERATOR'))
             setShowAdminBoard(user.roles.includes('ROLE_ADMIN'))
         }
-    }, [id]);
+    }, [id, istruzione]);
 
     const handleInputChange = event => {
         const {name, value} = event.target;

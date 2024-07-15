@@ -8,11 +8,16 @@ import './Istruzione.css'
 export function DialogWindowChoose({ show, handleClose, message, onConfirm, onCancel }) {
     return (
         <>
-            <Modal show={show} onClose={handleClose} className="ciao">
-                <h1>Aspetta un attimo!</h1>
-                {message}
-                <button onClick={onCancel}> Annulla</button>
-                <button onClick={onConfirm}> Elimina</button>
+            <Modal show={show} onClose={handleClose} className="Model_window">
+                <h2>Aspetta un attimo!</h2>
+                <div className="text_dialog_window">
+
+                    {message}
+                </div>
+                <div className="dialog_buttons">
+                    <button onClick={onConfirm} className="button_dialog_on_delete"> Elimina</button>
+                    <button onClick={onCancel} className="button_dialog_on_cancel"> Annulla</button>
+                </div>
             </Modal>
         </>
     );
