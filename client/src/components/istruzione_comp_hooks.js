@@ -63,7 +63,6 @@ export default function Istruzione() {
                 *
                 * RICORDATI: I cambiamenti di stato vengono aggiornati al prossimo render
                 * */
-
                 setIstruzione({
                     ...istruzione,
                     id: id,
@@ -110,15 +109,21 @@ export default function Istruzione() {
         console.log(istruzione)
     }
     const updateIstruzione = () => {
-        IstruzioneDataService.update(istruzione.id,istruzione)
+        const data = new FormData()
+        data.append('title', istruzione.title)
+        data.append('reparto', istruzione.reparto)
+        data.append('file', istruzione.file)
+        IstruzioneDataService.update(istruzione.id, data)
             .then(response => {
-                console.log('this is the update:',response.data)
+                console.log('questa é la response',response.data)
+                // re renderizziamo
+                SyncWithMe.current = false
             })
             .catch(e => {
                 console.log(e)
             })
-        // re renderizziamo
-        SyncWithMe.current = false
+        // reload the page
+        window.location.reload()
     }
 
 

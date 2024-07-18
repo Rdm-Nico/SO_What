@@ -17,7 +17,7 @@ module.exports = app => {
     router.get("/:id", istruzioni.findOne);
 
     // Update a single Instruction with id
-    router.put("/:id", istruzioni.update);
+    router.put("/:id", moduleF.upload, istruzioni.update);
 
     // Delete an Instruction by id
     router.delete("/:id", istruzioni.delete);

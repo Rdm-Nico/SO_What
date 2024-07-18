@@ -3,8 +3,9 @@ const Istruzione = db.istruzioni;
 const Op = db.Sequelize.Op;
 const jwt = require('jsonwebtoken')
 const config = require('../utils/config/config_token')
-
-
+const fs = require('fs')
+const path = require('path')
+const manage_file = require('../utils/deleteSingleFile')
 
 // Create and Save a new instruction
 exports.create =  (req, res) => {
@@ -64,49 +65,99 @@ exports.findOne = (req, res) =>{
 exports.update = (req, res) =>{
     const id = req.params.id;
 
-    console.log(req.body)
+    console.log('questo é il body:',req.body)
     console.log(id)
+    // create the Istruction
+    let istruzione = {
+        title: req.body.title,
+        reparto: req.body.reparto,
+    }
+    // check if there is a file to update
+    if(req.file){
+        istruzione.path = "http://localhost:9000/uploads/" + req.file.filename
+    }
 
-    Istruzione.update(req.body, { where: { id : id} })
-        .then(num => {
+    console.log(istruzione)
 
-            if(num[0] === 1){
-                res.send({
-                    message: "Instruction was updated successfully."
-                });
+    Istruzione.findByPk(id)
+        .then(data => {
+            if(data) {
+                json_data = data.toJSON()
+                console.log(json_data)
+                if(json_data.path !== istruzione.path){
+                    console.log('inside first if')
+                    // delete the old file and then update
+                    manage_file.delete_File(json_data.path)
+                }
+                console.log('outside first if')
+                Istruzione.update(istruzione, { where: { id : id} })
+                    .then(num => {
+
+                        if(num[0] === 1){
+                            res.send({
+                                message: "Instruction was updated successfully."
+                            });
+                        } else {
+                            res.send({
+                                message: `Cannot update Instruction with id=${id}. Maybe Instruction was not found or req.body is empty! `
+                            });
+                        }
+                    })
+                    .catch(err => {
+                        res.status(500).send({
+                            message: "Error updating instruction with id= " + id
+                        });
+                    });
+
             } else {
-                res.send({
-                    message: `Cannot update Instruction with id=${id}. Maybe Instruction was not found or req.body is empty! `
+                res.status(404).send({
+                    message: 'Cannot find instruction with id=' + id
                 });
             }
         })
         .catch(err => {
             res.status(500).send({
-                message: "Error updating instruction with id= " + id
+                message: "Error retrieving instruction with id= " +id
             });
         });
+
 };
 // Delete an instructions with the specified id in the request
 exports.delete = (req, res) =>{
     const id = req.params.id;
+    Istruzione.findByPk(id).then(data => {
+        if(data) {
+            json_data = data.toJSON()
+            console.log('this is json data:', json_data)
+            let path_file = json_data.path
 
-    Istruzione.destroy({ where : { id: id} })
-        .then(num => {
-            if(num === 1){
-                res.send({
-                    message: "Instruction was deleted successfully."
+            Istruzione.destroy({ where : { id: id} })
+                .then(num => {
+                    if(num === 1){
+                        console.log('questo é il url: ',path_file)
+                        manage_file.delete_File(path_file)
+                        res.send({
+                            message: "Instruction was deleted successfully."
+                        });
+                    } else {
+                        res.send({
+                            message: `Cannot find Instruction with id=${id}. Maybe Instruction was not found`
+                        });
+                    }
+                })
+                .catch(err => {
+                    res.status(500).send({
+                        message: "Error not delete instruction with id= " + id,
+                        error: err
+                    });
                 });
-            } else {
-                res.send({
-                    message: `Cannot find Instruction with id=${id}. Maybe Instruction was not found`
-                });
-            }
-        })
-        .catch(err => {
-            res.status(500).send({
-                message: "Error not delete instruction with id= " + id
+
+        } else {
+            res.status(404).send({
+                message: 'Cannot find instruction with id=' + id
             });
-        });
+        }
+    })
 };
 
 // Delete all instructions from the db

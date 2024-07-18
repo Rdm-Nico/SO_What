@@ -3,14 +3,17 @@
 
 }
 .submit-form {
-    font-weight: bold;
-    color: #15171c;
-    font-size: 25px;
     background-color: #dddddd;
 }
 .form-control {
     color: #405d27;
     font-weight: bold;
+}
+.form-group {
+    font-weight: bold;
+    color: #15171c;
+    font-size: 25px;
+    margin-left: 10px;
 }
 .h1_error {
     font-size: 70px;
