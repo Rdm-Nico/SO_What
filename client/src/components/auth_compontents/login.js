@@ -4,6 +4,7 @@ import * as Yup from "yup";
 import AuthService from "../../services/auth.service";
 import React, {useState} from "react";
 import {useNavigate} from "react-router-dom";
+import "../Istruzione.css"
 
 // Creating schema
 const schema = Yup.object().shape({
@@ -96,7 +97,7 @@ function Login() {
                                 </p>
                                 {/* Click on submit button to submit the form */}
 
-                                <button type="submit">Login</button>
+                                <button type="submit" className="login_button">Entra</button>
 
                                 {message && (
                                     <div className="form-login-group">

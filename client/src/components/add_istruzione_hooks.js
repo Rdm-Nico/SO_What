@@ -101,26 +101,29 @@ export default function AddIstruzione(){
         })
     }
     return (
-        <div> { showAdminBoard || showModeratorBoard ? (
+        <div className="submit"> { showAdminBoard || showModeratorBoard ? (
             <div className="submit-form">
                 {istruzione.submitted ? (
-                    <div>
+                    <div className="new_istruzione_page">
                         <h4>Istruzione inviata correttamente !</h4>
 
-                        <button className="btn btn-success" onClick={newIstruizone}>
-                            Nuova Istruzione
-                        </button>
-                        <button className="btn btn-success" onClick={() => {navigate('/')}}>
-                            Home
-                        </button>
+                        <div className="dialog_buttons">
+                            <button className="button_dialog_on_submit" onClick={newIstruizone}>
+                                Nuova Istruzione
+                            </button>
+                            <button className="button_dialog_on_home" onClick={() => {navigate('/')}}>
+                                Home
+                            </button>
+                        </div>
                     </div>
                 ) : (
                     <div>
                         <div className="form-group">
-                            <label htmlFor="title">Titolo</label>
+                            <label htmlFor="title">Titolo:</label>
                             <input
                                 type="text"
                                 className="form-control"
+                                placeholder="scrivere qui il nome"
                                 id="title"
                                 required
                                 value={istruzione.title}
@@ -131,7 +134,7 @@ export default function AddIstruzione(){
 
                         <div className="form-group">
                             <label htmlFor="reparto">Reparto:</label>
-                            <select  name="reparti_list" className="form-control" id="reparto" onChange={handleRepartoChange}>
+                            <select  name="reparti_list" className="select-control" id="reparto" onChange={handleRepartoChange}>
                                 {
                                      reparti.map((reparto,index) => (
                                              <option key={index} value={reparto.title}> {reparto.title}</option>
@@ -151,7 +154,7 @@ export default function AddIstruzione(){
                             />
                         </div>
 
-                        <button onClick={saveIstruzione} className="btn btn-success">
+                        <button onClick={saveIstruzione} className="submit_button">
                             Invia
                         </button>
 

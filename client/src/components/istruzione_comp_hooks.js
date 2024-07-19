@@ -4,7 +4,7 @@ import { useParams,useNavigate } from 'react-router-dom';
 import AuthService from "../services/auth.service";
 import {SidebarData} from "./SideBar/SidebarData";
 import "./Istruzione.css"
-import {DialogWindow, DialogWindowDelete, DialogWindowUpdate} from "./DialogWindows_hooks";
+import { DialogWindowDelete, DialogWindowUpdate} from "./DialogWindows_hooks";
 
 export default function Istruzione() {
 
@@ -139,10 +139,10 @@ export default function Istruzione() {
             })
     }
     return (
-        <div> { !(showAdminBoard || showModeratorBoard)  ? (
+        <div className="istruzione"> { !(showAdminBoard || showModeratorBoard)  ? (
             <div  className="submit-form">
                 {istruzione ? (
-                    <div className="edit-form">
+                    <div>
                         <h2>Istruzione n. {istruzione.id}</h2>
                         <form>
                             <div className="form-group">
@@ -183,7 +183,7 @@ export default function Istruzione() {
             </div>): (
             <div className="submit-form">
                 {istruzione ? (
-                    <div className="edit-form">
+                    <div>
                         <h2>Istruzione n. {istruzione.id}</h2>
                         <form>
                         <div className="form-group">
@@ -194,20 +194,17 @@ export default function Istruzione() {
                                     id="title"
                                     name="title"
                                     value={istruzione.title}
-                                    onChange={handleInputChange}/>
+                                   />
 
                             </div>
                             <div className="form-group">
                                 <label htmlFor="reparto">Reparto:</label>
-                                <select name="reparto" className="select-control" id="reparto" value={istruzione.reparto}
-                                        onChange={handleInputChange}>
-                                    {
-                                        reparti.map((reparto, index) => (
-                                                <option key={index} value={reparto.title}> {reparto.title}</option>
-                                            )
-                                        )
-                                    }
-                                </select>
+                                <input
+                                    type="text"
+                                    className="form-control"
+                                    id="reparto"
+                                    value={istruzione.reparto}
+                                />
                             </div>
 
                             <iframe src={istruzione.path}

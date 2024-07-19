@@ -16,15 +16,24 @@ select {
   text-align: center;
 }
 
+.istruzione{
+  background-color: #dddddd;
+}
+label{
+  font-size: 25px;
+}
+
+.login,
 .home,
-.reparti{
+.submit{
   display: flex;
+  flex-direction: column;
   height: 90vh;
   align-items: center;
   justify-content: center;
   font-size: 3rem;
+  background-color: #dddddd;
 }
-
 
 .search-bar-container{
   padding-top: 20vh;

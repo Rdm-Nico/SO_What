@@ -2,18 +2,24 @@
     background-color: #ddddddCC;
 
 }
-.submit-form {
-    background-color: #dddddd;
+.new_istruzione_page{
+    display: grid;
+    gap: 40px;
 }
+
 .form-control {
     color: #405d27;
     font-weight: bold;
+    font-size: 25px;
 }
 .form-group {
+    display: flex;
+    gap: 10px;
     font-weight: bold;
     color: #15171c;
     font-size: 25px;
-    margin-left: 10px;
+
+    margin-bottom: 10px;
 }
 .h1_error {
     font-size: 70px;
@@ -55,6 +61,15 @@ h2 {
     color: #15171c;
 }
 
+.submit_button {
+    display: flex;
+    font-weight: bolder;
+    font-size: 30px;
+    background-color: transparent;
+    color: #405d27;
+    margin-top: 20px;
+
+}
 
 .dialog_buttons{
     display: flex;
@@ -63,21 +78,48 @@ h2 {
 }
 .button_dialog_on_cancel{
     font-weight: bolder;
-    font-size: 25px;
+    font-size: 30px;
     background-color: transparent;
 }
 .button_dialog_on_delete{
     font-weight: bolder;
-    font-size: 25px;
+    font-size: 30px;
     background-color: transparent;
     color: #8b0000;
 }
 .button_dialog_on_submit{
     font-weight: bolder;
-    font-size: 25px;
+    font-size: 30px;
     background-color: transparent;
     color: #405d27;
 }
+.button_dialog_on_submit:hover{
+    font-weight: lighter;
+
+}
+
+.button_dialog_on_home{
+    font-weight: bolder;
+    font-size: 30px;
+    background-color: transparent;
+    color: #232E3B;
+}
+.button_dialog_on_home:hover{
+    font-weight: lighter;
+}
+
+
+.login_button{
+    font-weight: bolder;
+    font-size: 40px;
+    background-color: transparent;
+    color: #405d27;
+}
+.login_button:hover{
+    font-weight: lighter;
+}
+
+
 
 .home_button {
     width: 100%;
