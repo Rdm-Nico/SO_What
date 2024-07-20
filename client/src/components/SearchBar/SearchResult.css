@@ -8,7 +8,7 @@
 .Tornitura{
     padding-right: 10px;
     background-color: #405d27;
-    font-size: 11px;
+    font-size: 15px;
     font-family: 'Merriweather', serif;
     margin-left: auto;
     border-radius: 10px;
@@ -16,11 +16,11 @@
     border-style: groove;
     border-width: 3px;
     border-color: #405d27;
-
+    cursor: pointer;
 }
 .Rettifica{
     padding-right: 10px;
-    font-size: 11px;
+    font-size: 15px;
     background-color: goldenrod;
     font-family: 'Merriweather', serif;
     border-radius: 10px;
@@ -28,4 +28,107 @@
     border-style: groove;
     border-width: 3px;
     border-color: goldenrod;
+    cursor: pointer;
+}
+
+.Dentatura{
+    padding-right: 10px;
+    font-size: 15px;
+    background-color: #3d35ff;
+    font-family: 'Merriweather', serif;
+    border-radius: 10px;
+    font-weight: bold;
+    border-style: groove;
+    border-width: 3px;
+    border-color: #3d35ff;
+    cursor: pointer;
+}
+
+.Logistica {
+    padding-right: 10px;
+    font-size: 15px;
+    background-color: sandybrown;
+    font-family: 'Merriweather', serif;
+    border-radius: 10px;
+    font-weight: bold;
+    border-style: groove;
+    border-width: 3px;
+    border-color: sandybrown;
+    cursor: pointer;
+}
+
+.ufficio{
+    padding-right: 10px;
+    font-size: 15px;
+    background-color: blueviolet;
+    font-family: 'Merriweather', serif;
+    border-radius: 10px;
+    font-weight: bold;
+    border-style: groove;
+    border-width: 3px;
+    border-color: blueviolet;
+    cursor: pointer;
+}
+
+.Amministrazione{
+    padding-right: 10px;
+    font-size: 15px;
+    background-color: #ffa924;
+    font-family: 'Merriweather', serif;
+    border-radius: 10px;
+    font-weight: bold;
+    border-style: groove;
+    border-width: 3px;
+    border-color: #ffa924;
+    cursor: pointer;
+}
+
+.Produzione{
+    padding-right: 10px;
+    font-size: 15px;
+    background-color: brown;
+    font-family: 'Merriweather', serif;
+    border-radius: 10px;
+    font-weight: bold;
+    border-style: groove;
+    border-width: 3px;
+    border-color: brown;
+    cursor: pointer;
+}
+.Raddrizzatura{
+    padding-right: 10px;
+    font-size: 15px;
+    background-color: #50ff36;
+    font-family: 'Merriweather', serif;
+    border-radius: 10px;
+    font-weight: bold;
+    border-style: groove;
+    border-width: 3px;
+    border-color: #50ff36;
+    cursor: pointer;
+}
+.Lucidatura{
+    padding-right: 10px;
+    font-size: 15px;
+    background-color: aqua;
+    font-family: 'Merriweather', serif;
+    border-radius: 10px;
+    font-weight: bold;
+    border-style: groove;
+    border-width: 3px;
+    border-color: aqua;
+    cursor: pointer;
+}
+
+.Qualità{
+    padding-right: 10px;
+    font-size: 15px;
+    background-color: yellow;
+    font-family: 'Merriweather', serif;
+    border-radius: 10px;
+    font-weight: bold;
+    border-style: groove;
+    border-width: 3px;
+    border-color: yellow;
+    cursor: pointer;
 }

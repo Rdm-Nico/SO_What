@@ -68,6 +68,7 @@ const SubMenu = ({item}) => {
         <SidebarLink to={item.path} onClick={
             // this code show how to handle the showing or not of the sidebar
             (item.subNav && showSubNav) || ( !item.subNav && showSidebar)
+
         }>
         <div>
             {item.icon}
@@ -79,7 +80,7 @@ const SubMenu = ({item}) => {
         </SidebarLink>
         {subnav && item.subNav.map((subItem, index) =>{
             return (
-                <DropdownLink to={subItem.path} key={index} onClick={window.location.reload} onMouseEnter={() => setIsHovered(index)} onMouseLeave={() => setIsHovered(null) }>
+                <DropdownLink to={subItem.path} key={index}  onMouseEnter={() => setIsHovered(index)} onMouseLeave={() => setIsHovered(null) }>
                     <IconWrapper value={{color: isHovered === index ? '#15171c' : '#f5f5f5'}}>
                         {subItem.icon}
                     </IconWrapper>

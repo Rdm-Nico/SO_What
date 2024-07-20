@@ -1,0 +1,32 @@
+
+.column_header{
+    font-size: 18px;
+}
+
+.TableList{
+    display: grid;
+
+}
+.table-name{
+    display: flex;
+    align-items: center;
+
+}
+.table-button{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.button_list{
+    font-size: 17px;
+    font-weight: bolder;
+    border: 3px groove #dddddd;
+    border-radius: 15px;
+}
+.button_list:hover{
+    background-color: #232E3B;
+    color: #dddddd;
+    border: 3px solid #15171c;
+}
+
