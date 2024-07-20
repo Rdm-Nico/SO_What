@@ -5,6 +5,8 @@ import "../Istruzione.css"
 import "../SearchBar/SearchResult.css"
 import "./List_items.css"
 import TableList from "./TableList";
+import { FaAngleLeft, FaAngleRight } from "react-icons/fa";
+
 export default function IstruzioniListsReparto(){
     const {reparto} = useParams()
     let navigate = useNavigate();
@@ -14,7 +16,7 @@ export default function IstruzioniListsReparto(){
         currentIndex: -1,
         reparto : reparto
     });
-    const TOT_VALUES_PER_PAGE = 10;
+    const TOT_VALUES_PER_PAGE = 20;
     const [currentPageNumber, setCurrentPageNumber] = useState(1);
     const [dataToDisplay, setDataToDisplay] = useState([]);
 
@@ -93,7 +95,16 @@ export default function IstruzioniListsReparto(){
         <div>
             <h2>{reparto.toUpperCase()}</h2>
             {lista ? (
-                <TableList dataToDisplay={dataToDisplay} />
+                    <div className="container">
+                        <TableList dataToDisplay={dataToDisplay} />
+
+                        <div className="button_pagination">
+                            <FaAngleLeft onClick={goOnPrevPage}/>
+                            {currentPageNumber}/{Math.ceil(lista.istruzioni.length/TOT_VALUES_PER_PAGE)}
+                            <FaAngleRight onClick={goOnNextPage} />
+                        </div>
+
+                    </div>
             ) : (
                 <div>
                     <h1> Errore nella pagina </h1>

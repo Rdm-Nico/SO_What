@@ -1,6 +1,11 @@
 
+.column_title_header{
+    display: flex;
+    font-size: 22px;
+}
+
 .column_header{
-    font-size: 18px;
+    font-size: 22px;
 }
 
 .TableList{
@@ -29,4 +34,14 @@
     color: #dddddd;
     border: 3px solid #15171c;
 }
+
+.button_pagination{
+    display: flex;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 30px;
+    gap: 20px;
+    caret-color: transparent;
+}
+
 

@@ -17,7 +17,7 @@ export default function TableList({dataToDisplay}){
             <table>
                 <thead>
                 <tr>
-                    <th className="column_header">Titolo</th>
+                    <th className="column_title_header">Titolo</th>
                     <th className="column_header">Reparto</th>
                     <th className="column_header">Azione</th>
                 </tr>
@@ -30,7 +30,7 @@ export default function TableList({dataToDisplay}){
                             <td className='table-name'>{istruzione.title}</td>
                             <td className={istruzione.reparto} onClick={() => {
                                 navigate("/reparti/" + istruzione.reparto)
-                            }}>{istruzione.reparto}</td>
+                            }}> {istruzione.reparto} </td>
                             <td className="table-button">
                                 <button className="button_list" onClick={() => {
                                     navigate("/istruzione/" + istruzione.id)

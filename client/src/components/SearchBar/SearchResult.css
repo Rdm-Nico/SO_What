@@ -17,6 +17,7 @@
     border-width: 3px;
     border-color: #405d27;
     cursor: pointer;
+    width: 100px;
 }
 .Rettifica{
     padding-right: 10px;
@@ -29,6 +30,7 @@
     border-width: 3px;
     border-color: goldenrod;
     cursor: pointer;
+    width: 100px;
 }
 
 .Dentatura{
@@ -42,6 +44,7 @@
     border-width: 3px;
     border-color: #3d35ff;
     cursor: pointer;
+    width: 100px;
 }
 
 .Logistica {
@@ -55,6 +58,7 @@
     border-width: 3px;
     border-color: sandybrown;
     cursor: pointer;
+    width: 100px;
 }
 
 .ufficio{
@@ -68,6 +72,7 @@
     border-width: 3px;
     border-color: blueviolet;
     cursor: pointer;
+    width: 100px;
 }
 
 .Amministrazione{
@@ -81,6 +86,7 @@
     border-width: 3px;
     border-color: #ffa924;
     cursor: pointer;
+    width: 100px;
 }
 
 .Produzione{
@@ -94,6 +100,7 @@
     border-width: 3px;
     border-color: brown;
     cursor: pointer;
+    width: 100px;
 }
 .Raddrizzatura{
     padding-right: 10px;
@@ -106,6 +113,7 @@
     border-width: 3px;
     border-color: #50ff36;
     cursor: pointer;
+    width: 100px;
 }
 .Lucidatura{
     padding-right: 10px;
@@ -118,6 +126,7 @@
     border-width: 3px;
     border-color: aqua;
     cursor: pointer;
+    width: 100px;
 }
 
 .Qualità{
@@ -131,4 +140,5 @@
     border-width: 3px;
     border-color: yellow;
     cursor: pointer;
+    width: 100px;
 }

@@ -35,7 +35,7 @@ const SidebarNav = styled.nav`
   overflow: auto;
   direction: rtl;
   top: 0;
-  left: ${({ sidebar }) => (sidebar ? '0' : '-100%')};
+  left: ${({ sidebar }) => (sidebar === "false" ? '0' : '-100%')};
   transition: 350ms;
   z-index: 10;
 `;
@@ -51,7 +51,6 @@ const SidebarWrap = styled.div`
 const Sidebar = () => {
 
   const[sidebar, setSidebar] = useState(false)
-  const scrollbar = useRef(null)
 
   const showSidebar = () => setSidebar(!sidebar)
 
@@ -63,7 +62,7 @@ const Sidebar = () => {
         <FaIcons.FaBars onClick={showSidebar} />
       </NavIcon>
     </Nav>
-    <SidebarNav sidebar={sidebar}>
+    <SidebarNav sidebar={sidebar.toString()}>
       <SidebarContent>
         <SidebarWrap>
             <NavIcon to="#">
@@ -72,7 +71,7 @@ const Sidebar = () => {
               />
             </NavIcon>
             {SidebarData.map((item, index) =>{
-                return <SubMenu item={item} key={index}  />;
+                return <SubMenu item={item} key={index} showSideBar={showSidebar}  />;
             })}
         </SidebarWrap>
       </SidebarContent>

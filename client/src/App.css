@@ -21,6 +21,11 @@ select {
 }
 label{
   font-size: 25px;
+  caret-color: transparent;
+}
+
+.home_page {
+  caret-color: transparent;
 }
 
 .login,

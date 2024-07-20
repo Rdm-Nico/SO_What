@@ -26,7 +26,7 @@ const SidebarLink = styled(Link)`
 
 
 const SidebarLabel = styled.span`
-    margin-left: 5px;
+    margin-right: 5px;
 `;
 
 const DropdownLink = styled(Link)`
@@ -48,6 +48,8 @@ const DropdownLink = styled(Link)`
     }
 `;
 
+
+
 const IconWrapper = styled(IconContext.Provider)`
     color: #f5f5f5;
     display: flex;
@@ -58,7 +60,7 @@ const IconWrapper = styled(IconContext.Provider)`
 `;
 
 
-const SubMenu = ({item}) => {
+const SubMenu = ({item, showSideBar}) => {
     const [subnav, setSubnav] = useState(false)
     const showSubNav = () => setSubnav(!subnav)
     const [isHovered, setIsHovered] = useState(false);
@@ -67,7 +69,7 @@ const SubMenu = ({item}) => {
         <>
         <SidebarLink to={item.path} onClick={
             // this code show how to handle the showing or not of the sidebar
-            (item.subNav && showSubNav) || ( !item.subNav && showSidebar)
+            (item.subNav && showSubNav) || ( !item.subNav && showSideBar)
 
         }>
         <div>
@@ -80,12 +82,12 @@ const SubMenu = ({item}) => {
         </SidebarLink>
         {subnav && item.subNav.map((subItem, index) =>{
             return (
-                <DropdownLink to={subItem.path} key={index}  onMouseEnter={() => setIsHovered(index)} onMouseLeave={() => setIsHovered(null) }>
-                    <IconWrapper value={{color: isHovered === index ? '#15171c' : '#f5f5f5'}}>
-                        {subItem.icon}
-                    </IconWrapper>
-                    <SidebarLabel>{subItem.title}</SidebarLabel>
-                </DropdownLink>
+                    <DropdownLink to={subItem.path} key={index} onClick={showSideBar}  onMouseEnter={() => setIsHovered(index)} onMouseLeave={() => setIsHovered(null) }>
+                        <IconWrapper value={{color: isHovered === index ? '#15171c' : '#f5f5f5'}}>
+                            {subItem.icon}
+                        </IconWrapper>
+                        <SidebarLabel>{subItem.title}</SidebarLabel>
+                    </DropdownLink>
             )
         })}
         </>
