@@ -1,7 +1,7 @@
 import React, {useState} from 'react'
 import {SearchBar} from "../components/SearchBar/SearchBar";
 import {SearchResultsList} from "../components/SearchBar/SearchResultsList";
-
+import ImgLocal from "./logo512.png"
 
 
 const Home = () => {
@@ -12,9 +12,10 @@ const Home = () => {
 
   return (
     <div className='home-page'>
-
+        <div className="container_img">
+            <img src={ImgLocal} alt={"Immagine prova"} className="img_home" />
+        </div>
         <div className="search-bar-container">
-
             <SearchBar setResults={setResults} />
             <SearchResultsList results={results} />
         </div>

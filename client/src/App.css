@@ -40,6 +40,18 @@ label{
   background-color: #dddddd;
 }
 
+.container_img{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 25vh; /* Altezza pari all'altezza della viewport */
+}
+.img_home{
+  width: 150px; /*  la larghezza desiderata */
+  height: auto; /* Mantiene le proporzioni */
+  max-width: 100%; /* Assicura che l'immagine non superi la larghezza del contenitore */
+}
+
 .search-bar-container{
   padding-top: 20vh;
   width: 40%;

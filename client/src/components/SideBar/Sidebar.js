@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import {Link} from 'react-router-dom';
 import * as FaIcons from 'react-icons/fa';
 import * as AiIcons from 'react-icons/ai';
+import { IoHomeSharp } from "react-icons/io5";
 import {SidebarData} from './SidebarData';
 import SubMenu from './SubMenu';
 import { IconContext } from 'react-icons';
@@ -13,11 +14,18 @@ const Nav = styled.div`
   display: flex;
   justify-content: flex-start;
   align-items: center;
+  
+`;
+
+const NavHome = styled(Link)`
+  margin-left: auto;
+  margin-right: 1rem;
+  color: #405d27;
+  font-size: 2rem;
 `;
 
 const NavIcon = styled(Link)`
   margin-left: 2rem;
-  color: #405d27;
   font-size: 2rem;
   height: 80px;
   display: flex;
@@ -61,6 +69,9 @@ const Sidebar = () => {
       <NavIcon to="#">
         <FaIcons.FaBars onClick={showSidebar} />
       </NavIcon>
+      <NavHome to={"/home"}>
+        <IoHomeSharp/>
+      </NavHome>
     </Nav>
     <SidebarNav sidebar={sidebar.toString()}>
       <SidebarContent>
