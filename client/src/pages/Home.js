@@ -1,7 +1,7 @@
 import React, {useState} from 'react'
 import {SearchBar} from "../components/SearchBar/SearchBar";
 import {SearchResultsList} from "../components/SearchBar/SearchResultsList";
-import ImgLocal from "./logo512.png"
+import ImgLocal from "./Logo-Rossi-Meccanica-50esimo-nero-a-rilievo.jpg"
 
 
 const Home = () => {
