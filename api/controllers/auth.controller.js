@@ -31,13 +31,13 @@ exports.signup =(req, res) => {
                     }
                 }).then(roles => {
                     user.setRoles(roles).then(() => {
-                        res.send({ message: "User was registered successfully!" });
+                        res.send({ message: "User was registered successfully! Adesso puoi fare il login" });
                     });
                 });
             } else {
                 // user role = 1
                 user.setRoles([1]).then(() => {
-                    res.send({ message: "User was registered successfully!" });
+                    res.send({ message: "User was registered successfully! Adesso puoi fare il login" });
                 });
             }
         })
