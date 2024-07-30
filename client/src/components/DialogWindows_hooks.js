@@ -55,7 +55,7 @@ export function DialogWindowUpdate({show, handleClose, onConfirm, onCancel, hand
 
                 <div className="form-group">
                     <label htmlFor="reparto">Reparto:</label>
-                    <select name="reparti_list" className="select-control" id="reparto" onChange={handleInputChange}>
+                    <select name="reparti_list" className="select-control" id="reparto" onChange={handleInputChange} value={istruzione.reparto}>
                         {
                             reparti.map((reparto, index) => (
                                     <option key={index} value={reparto.title}> {reparto.title}</option>

@@ -2,15 +2,16 @@ import React, {useState} from 'react';
 import { Formik, Field, Form } from 'formik';
 import * as Yup from 'yup';
 import AuthService from "../../services/auth.service";
+import "../Istruzione.css"
 
 const validationSchema = Yup.object().shape({
-    username: Yup.string().nonNullable('Invalid username').required('Username is required'),
+    username: Yup.string().nonNullable('username non valido').required('Username é richiesto'),
     password: Yup.string()
-        .min(6, 'Password must be at least 6 characters')
-        .required('Password is required'),
+        .min(6, 'Password deve essere di almeno 6 caratteri')
+        .required('Password é obbligatoria'),
     confirm_password: Yup.string()
-        .oneOf([Yup.ref('password')], 'Passwords must match')
-        .required('Confirm Password is required'),
+        .oneOf([Yup.ref('password')], 'Passwords devono essere uguali')
+        .required('Conferma Password é obbligatoria'),
     roles: Yup.array().min(1,'Inserire almeno un ruolo')
 });
 
@@ -22,8 +23,8 @@ const Register = () => {
 
 
     return (
-        <div>
-            <h1>Sign Up</h1>
+        <div className="register">
+            <h2>Sign Up</h2>
             <Formik
                 validationSchema={validationSchema}
                 initialValues={{
@@ -62,15 +63,15 @@ const Register = () => {
                }) => (
                 <Form noValidate onSubmit={handleSubmit}>
                     {!successful && (
-                        <div>
-                            <label htmlFor="Username">Username</label>
-                            <Field id="username" name="username" placeholder="utente"/>
+                        <div className="form-control">
+                            <label htmlFor="Username">Username:</label>
+                            <Field id="username" name="username" placeholder="utente" className="form-text"/>
                             {/* If validation is not passed show errors */}
                             <p className="error">
                                 {errors.username && touched.username && errors.username}
                             </p>
 
-                            <label htmlFor="password">Password</label>
+                            <label htmlFor="password">Password:</label>
                             <Field
                                 type="password"
                                 name="password"
@@ -79,13 +80,13 @@ const Register = () => {
                                 value={values.password}
 
                                 placeholder="Enter password"
-                                className="form-control"
+                                className="form-text"
                             />
                             {/* If validation is not passed show errors */}
                             <p className="error">
                                 {errors.password && touched.password && errors.password}
                             </p>
-                            <label htmlFor="password">Confirm Password</label>
+                            <label htmlFor="password">Conferma Password:</label>
                             <Field
                                 type="password"
                                 name="confirm_password"
@@ -93,23 +94,23 @@ const Register = () => {
                                 onBlur={handleBlur}
                                 value={values.confirm_password}
                                 placeholder="Enter password"
-                                className="form-control"
+                                className="form-text"
                             />
                             {/* If validation is not passed show errors */}
                             <p className="error">
                                 {errors.confirm_password && touched.confirm_password && errors.confirm_password}
                             </p>
-                            <div id="checkbox-group">Roles</div>
-                            <div role="group" aria-labelledby="checkbox-group">
-                                <label>
-                                    <Field type="checkbox" name="roles" value="User"/>
+                            <span id="checkbox-group">Ruoli:</span>
+                            <div className="checkbox_container" role="group" aria-labelledby="checkbox-group">
+                                <label className="label_checkbox">
+                                    <Field type="checkbox" name="roles" value="User" id="user"/>
                                     User
                                 </label>
-                                <label>
+                                <label className="label_checkbox">
                                     <Field type="checkbox" name="roles" value="Moderator"/>
                                     Moderator
                                 </label>
-                                <label>
+                                <label className="label_checkbox">
                                     <Field type="checkbox" name="roles" value="Admin"/>
                                     Admin
                                 </label>
@@ -118,7 +119,7 @@ const Register = () => {
                             <p className="error">
                                 {errors.roles && touched.roles && errors.roles}
                             </p>
-                            <button type="submit">Submit</button>
+                            <button className="sign_up_button" type="submit">Submit</button>
                         </div>
                     )}
 

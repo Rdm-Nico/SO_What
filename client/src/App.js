@@ -36,9 +36,9 @@ const App = () => {
   }
 
   return (
-      <div>
+      <div className="container_site">
         <Sidebar />
-        <div className="container mt-3">
+        <div>
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/home" element={<Home />} />

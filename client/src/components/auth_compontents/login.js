@@ -9,9 +9,9 @@ import "../Istruzione.css"
 // Creating schema
 const schema = Yup.object().shape({
     username: Yup.string()
-        .required("Username is a required field"),
+        .required("Username é un campo obbligatorio"),
     password: Yup.string()
-        .required("Password is a required field"),
+        .required("Password é un campo obbligatorio"),
 });
 
 function Login() {

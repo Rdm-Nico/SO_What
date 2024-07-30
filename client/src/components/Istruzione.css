@@ -11,6 +11,7 @@
     color: #405d27;
     font-weight: bold;
     font-size: 25px;
+
 }
 .form-group {
     display: flex;
@@ -186,3 +187,40 @@ h2 {
     border: 3px solid #15171c;
 }
 
+/* ----------------------------- Register Page ----------------------------- */
+
+.error{
+    color: darkred;
+    font-size: 15px;
+    font-weight: bolder;
+}
+
+.form-text{
+    color: #232E3B;
+    font-weight: bold;
+    font-size: 25px;
+}
+
+.checkbox_container[type="checkbox"]{
+    display: flex;
+    width: 15px;
+}
+
+.label_checkbox{
+    display: grid;
+    gap: 10px;
+    justify-content: center;
+    color: #232E3B;
+    font-weight: normal;
+}
+
+.sign_up_button{
+    font-weight: bolder;
+    gap: 10px;
+    font-size: 40px;
+    background-color: transparent;
+    color: #15171c;
+}
+.sign_up_button:hover{
+    font-weight: lighter;
+}
