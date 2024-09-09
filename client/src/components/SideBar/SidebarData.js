@@ -4,6 +4,7 @@ import * as IoIcons from 'react-icons/io'
 import * as RiIcons from 'react-icons/ri'
 import * as BiIcons from 'react-icons/bi'
 import * as FiIcons from 'react-icons/fi'
+import * as FaIcons from 'react-icons/fa6'
 
 
 
@@ -78,8 +79,13 @@ export const SidebarData = [
         icon: <FiIcons.FiFilePlus />,
     },
     {
-        title:'Login',
+        title:'Login In',
         path:'/login',
         icon: <BiIcons.BiLogInCircle />,
+    },
+    {
+        title:'Sign Up',
+        path:'/register',
+        icon: <FaIcons.FaUserPlus />,
     }
 ]

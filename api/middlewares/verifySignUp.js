@@ -6,6 +6,8 @@
 const db = require("../models")
 const ROLES = db.ROLES
 const User = db.user
+const power_roles = ['admin', 'moderator']
+const Passwordconfig = require("../utils/config/config_role")
 
 checkDuplicateUsername = (req, res, next) =>{
     User.findOne({
@@ -39,9 +41,32 @@ checkRoleExisted = (req, res, next) => {
     next();
 };
 
+checkRolePower = (req, res, next) => {
+    if(req.body.role_password){
+        let flag = false
+        for(let i = 0; i < req.body.roles.length; i++){
+            if(power_roles.includes(req.body.roles[i].toLowerCase())) {
+                flag = true
+            }
+        }
+
+        if(flag){
+            // check if the role_password is the same
+            if(req.body.role_password !== Passwordconfig.SECRET_PASSWORD) {
+                return res.status(400).send({
+                    message: "La password inserita per diventare amministratore/moderatore è sbagliata, ricarica la pagina"
+                })
+            }
+        }
+
+    }
+    next();
+};
+
 const verifySignUp = {
     checkDuplicateUsername: checkDuplicateUsername,
-    checkRoleExisted: checkRoleExisted
+    checkRoleExisted: checkRoleExisted,
+    checkRolePower: checkRolePower
 }
 
 module.exports = verifySignUp;

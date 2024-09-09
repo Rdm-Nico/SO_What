@@ -24,7 +24,8 @@ module.exports = (app) => {
         [
             // here we verify the data
             verifySignUp.checkDuplicateUsername,
-            verifySignUp.checkRoleExisted
+            verifySignUp.checkRoleExisted,
+            verifySignUp.checkRolePower
         ],
         // and process the sign-up
         controller.signup

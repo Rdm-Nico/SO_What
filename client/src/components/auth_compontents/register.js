@@ -20,8 +20,21 @@ const Register = () => {
 
     const [successful, setSuccessful] = useState(false);
     const [message, setMessage] = useState("");
+    const [IsNotUser, setIsNotUser] = useState(false);
 
 
+    function handleRoleChange(value){
+        console.log(value)
+
+        if("Utente" === value){
+            setIsNotUser(false)
+        }
+        else{
+            IsNotUser ? setIsNotUser(false) : setIsNotUser(true);
+
+        }
+
+    }
     return (
         <div className="register">
             <h2>Sign Up</h2>
@@ -31,11 +44,12 @@ const Register = () => {
                     username: '',
                     password: '',
                     confirm_password: '',
-                    roles: []
+                    roles: [],
+                    role_password: ''
                 }}
                 onSubmit={async (values) => {
 
-                    AuthService.register(values.username, values.password, values.roles).then(
+                    AuthService.register(values.username, values.password, values.roles, values.role_password).then(
                         (response) => {
                             setMessage(response.data.message);
                             setSuccessful(true);
@@ -53,13 +67,27 @@ const Register = () => {
                         }
                     );
                 }}
+
+                validateOnChange={async (values) => {
+                    console.log(values.roles)
+                    console.log(IsNotUser)
+
+                    if("Utente" in values.roles || values.roles.length === 0){
+                        setIsNotUser(false)
+                    }
+                    else{
+                        setIsNotUser(true)
+                    }
+                }}
+
             >{ ({
                    values,
                    errors,
                    touched,
                    handleChange,
                    handleBlur,
-                   handleSubmit,
+                   handleSubmit
+
                }) => (
                 <Form noValidate onSubmit={handleSubmit}>
                     {!successful && (
@@ -103,18 +131,45 @@ const Register = () => {
                             <span id="checkbox-group">Ruoli:</span>
                             <div className="checkbox_container" role="group" aria-labelledby="checkbox-group">
                                 <label className="label_checkbox">
-                                    <Field type="checkbox" name="roles" value="User" id="user"/>
-                                    User
+                                    <Field type="checkbox" name="roles" value="user" id="user" />
+                                    Utente
                                 </label>
                                 <label className="label_checkbox">
-                                    <Field type="checkbox" name="roles" value="Moderator"/>
-                                    Moderator
+                                    <Field type="checkbox" name="roles" value="moderator" onClick={ e => {
+                                        // build in formik
+                                        handleChange(e)
+
+                                        // custom event
+                                        handleRoleChange(e.target.value)}
+                                    } />
+                                    Moderatore
                                 </label>
-                                <label className="label_checkbox">
-                                    <Field type="checkbox" name="roles" value="Admin"/>
-                                    Admin
-                                </label>
+                                {/*<label className="label_checkbox">
+                                    <Field type="checkbox" name="roles" value="admin" onClick={ e => {
+                                        // build in formik
+                                        handleChange(e)
+
+                                        // custom event
+                                        handleRoleChange(e.target.value)}
+                                    } />
+                                    Amministratore
+                                </label>*/}
                             </div>
+                            {/* check role password */}
+                            {IsNotUser && (
+                                <div>
+                                    <p style={{ fontSize: '18px' }}>per creare il profilo moderatore è necessario inserire la corretta password:</p>
+                                    <Field
+                                        type="password"
+                                        name="role_password"
+                                        onChange={handleChange}
+                                        onBlur={handleBlur}
+
+                                        placeholder="Enter password"
+                                        className="form-text"
+                                    />
+                                </div>
+                            )}
                             {/* If validation is not passed show errors */}
                             <p className="error">
                                 {errors.roles && touched.roles && errors.roles}
@@ -124,7 +179,7 @@ const Register = () => {
                     )}
 
                     {message && (
-                        <div className="form-login-group">
+                        <div className="error">
                             <div
                                 className={successful ? "alert alert-success" : "alert alert-danger"}
                                 role="alert"

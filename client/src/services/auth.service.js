@@ -11,11 +11,12 @@ import http from "../common/http-common"
 import TokenService from "./token.service";
 
 
-const register = (username, password, roles) => {
+const register = (username, password, roles, role_password) => {
     return http.post("/auth/signup", {
         username,
         password,
-        roles
+        roles,
+        role_password
     });
 };
 
