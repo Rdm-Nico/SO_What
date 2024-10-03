@@ -42,14 +42,14 @@ label{
   align-items: center;
   justify-content: center;
   font-size: 3rem;
-  
+
 }
 
 .container_img{
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 25vh; /* Altezza pari all'altezza della viewport */
+  height: 35vh; /* Altezza pari all'altezza della viewport */
 }
 .img_home{
   width: 150px; /*  la larghezza desiderata */
