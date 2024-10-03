@@ -8,7 +8,7 @@ import {SidebarData} from './SidebarData';
 import SubMenu from './SubMenu';
 import { IconContext } from 'react-icons';
 import AuthService from "../../services/auth.service";
-import ImgLocal from "./logo_64x67.png";
+import ImgLocal from "../../imgs/logo_64x67.png";
 
 const Nav = styled.div`
   background: #15171c;
