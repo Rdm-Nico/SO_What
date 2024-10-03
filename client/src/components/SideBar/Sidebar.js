@@ -8,6 +8,7 @@ import {SidebarData} from './SidebarData';
 import SubMenu from './SubMenu';
 import { IconContext } from 'react-icons';
 import AuthService from "../../services/auth.service";
+import ImgLocal from "./logo_64x67.png";
 
 const Nav = styled.div`
   background: #15171c;
@@ -96,6 +97,13 @@ const Sidebar = () => {
   color: #405d27;
   font-size: 2rem;
 `;
+  const IconImage = styled.img`
+    width: 100%;
+    max-width: 300px;
+    height: auto;
+    margin-top: 10px;
+`;
+
   return (
     <>
     <IconContext.Provider value={{ color: '#fff'}}> {/* permette di colorare tutte le icone con un unico colore */}
@@ -109,7 +117,7 @@ const Sidebar = () => {
           </Button>
       )}
       <NavHome to={"/home"}>
-        <IoHomeSharp/>
+        <IconImage src={ImgLocal} alt={"Logo image"}/>
       </NavHome>
     </Nav>
       <SidebarNav sidebar={sidebar.toString()}>
